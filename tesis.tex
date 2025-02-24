@@ -2,6 +2,7 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage{setspace} % Double Space 
 \usepackage{ragged2e} % justify text
+\usepackage{enumitem} % enumeration within subsection
 \usepackage[letterpaper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
 
 \title{Tesis}
@@ -36,9 +37,17 @@
 \newpage
 \section{Objetivos}
 \subsection{Objetivo General}
-{\justify }
+{\justify Desarrollar e implementar un sistema de localización y navegación basado en realidad aumentada para la Universidad 
+del Valle de Guatemala, utilizando sensores Estimote Beacons con tecnología UWB y mejorando el algoritmo de pathfinding para 
+optimizar la experiencia del usuario.}
 
 \subsection{Objetivos Específicos}
-
+\begin{enumerate}[label=\thesubsection.\arabic*]
+    \item Realizar el mapeo de la universidad para determinar la ubicación óptima de los sensores Estimote Beacons con tecnología UWB.
+    \item Configurar e integrar los sensores Estimote Beacons en la aplicación de realidad aumentada para mejorar la precisión de la 
+    localización dentro del campus.
+    \item Optimizar el algoritmo de pathfinding para generar rutas accesibles y mejorar la experiencia del usuario al navegar por la 
+    universidad.
+\end{enumerate}
 
 \end{document}
