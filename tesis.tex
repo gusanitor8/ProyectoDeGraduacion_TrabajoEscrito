@@ -5,6 +5,8 @@
 \usepackage{enumitem} % enumeration within subsection
 \usepackage[letterpaper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
 
+\setlength{\parskip}{1em} % we increase paragraph spacing
+
 \title{Tesis}
 \author{GUSTAVO ANDRES GONZALEZ PINEDA}
 \date{February 2025}
@@ -28,7 +30,6 @@
     {\Large Trabajo de graduación en modalidad de Megaproyecto presentado por Gustavo González
     para optar al grado academico de Licenciatura en Ingeniería en Ciencias de la Computación y Tecnologías de la Información.}
 
-    \vspace{10mm} 
     {\Large Guatemala, \\ 2025}
     
 \end{doublespace}
@@ -49,5 +50,29 @@ optimizar la experiencia del usuario.}
     \item Optimizar el algoritmo de pathfinding para generar rutas accesibles y mejorar la experiencia del usuario al navegar por la 
     universidad.
 \end{enumerate}
+
+\section{Introducción}
+{\justify
+La orientación dentro de un campus universitario puede representar un desafío para estudiantes nuevos, visitantes y personas con
+ discapacidad. Con el avance de la tecnología, la realidad aumentada (AR) se ha convertido en una herramienta innovadora para mejorar
+  la experiencia de navegación en espacios físicos. En este contexto, el presente proyecto busca desarrollar una aplicación de realidad
+   aumentada para recorridos dentro de la Universidad del Valle de Guatemala (UVG), proporcionando una guía interactiva e inclusiva 
+   que facilite el desplazamiento desde un punto A hasta un punto B dentro del campus.
+
+Este proyecto se basa en el trabajo realizado en años anteriores, donde se implementó una versión preliminar de la navegación con AR,
+ pero con limitaciones significativas. Una de las principales dificultades fue la dependencia de códigos QR para la ubicación, lo que
+  restringía la precisión y fluidez del recorrido. Además, la implementación del algoritmo de pathfinding presentaba problemas en la 
+  generación de rutas óptimas, afectando la experiencia del usuario.
+
+Para mejorar estos aspectos, la universidad ha invertido en sensores Estimote Beacons con tecnología Ultra-Wideband (UWB), los cuales
+ permitirán una localización más precisa dentro del campus. La labor de este trabajo se centrará en el mapeo del campus para 
+ determinar la ubicación óptima de estos sensores, su configuración e integración con la aplicación y la optimización del algoritmo
+  de pathfinding para generar rutas más accesibles y eficientes.
+
+El objetivo es mejorar la precisión de la navegación y evitar rutas poco prácticas o inaccesibles para ciertos usuarios. Esto 
+contribuirá a una experiencia más fluida y efectiva al desplazarse dentro del campus, garantizando que la aplicación proporcione 
+indicaciones precisas y usables en diferentes escenarios.A través de este trabajo, se espera ofrecer una solución innovadora y 
+funcional que aproveche las capacidades de la realidad aumentada y la localización UWB para facilitar la movilidad dentro de la UVG,
+ mejorando la orientación y accesibilidad dentro del campus universitario.}
 
 \end{document}
