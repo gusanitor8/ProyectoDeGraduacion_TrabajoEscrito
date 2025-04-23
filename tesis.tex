@@ -3,6 +3,7 @@
 \usepackage{setspace} % Double Space 
 \usepackage{ragged2e} % justify text
 \usepackage{enumitem} % enumeration within subsection
+\usepackage{url} % inserting links and urls
 \usepackage[letterpaper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
 
 \setlength{\parskip}{1em} % we increase paragraph spacing
@@ -110,5 +111,105 @@ contribuirá a una experiencia más fluida y efectiva al desplazarse dentro del 
 indicaciones precisas y usables en diferentes escenarios.A través de este trabajo, se espera ofrecer una solución innovadora y 
 funcional que aproveche las capacidades de la realidad aumentada y la localización UWB para facilitar la movilidad dentro de la UVG,
  mejorando la orientación y accesibilidad dentro del campus universitario.}
+
+\newpage
+\section{Justificación}
+{\justify
+Actualmente, el proceso de orientación para estudiantes nuevos, visitantes y padres de familia dentro del campus universitario de la Universidad del Valle de Guatemala presenta diversas limitaciones. Tradicionalmente, el recorrido por las instalaciones es guiado por estudiantes o personal universitario, pero este se realiza una única vez —si es que se llega a realizar— lo cual suele ser insuficiente para que los usuarios recuerden rutas, espacios o servicios disponibles. Como consecuencia, durante los primeros semestres, muchos estudiantes enfrentan dificultades para ubicarse, llegando a perderse o desaprovechar recursos valiosos del campus.
+
+Además de la desorientación inicial, existen barreras de accesibilidad que afectan a personas con movilidad reducida o con discapacidades visuales, quienes podrían beneficiarse significativamente de un sistema que les permita planificar sus trayectos de forma precisa y adaptada a sus necesidades. Una solución tecnológica puede contribuir a solventar ambos problemas, mejorando tanto la orientación como la inclusión dentro del entorno universitario.
+
+En este contexto, el desarrollo de una aplicación de realidad aumentada con capacidades de localización y navegación precisa representa una oportunidad para aplicar conocimientos técnicos adquiridos a lo largo de la carrera de Ingeniería en Ciencias de la Computación y Tecnologías de la Información. Este proyecto integra áreas clave como programación orientada a objetos, interacción humano-computadora, gráficos por computadora, desarrollo móvil y algoritmos de búsqueda de caminos (pathfinding). Asimismo, se utilizarán sensores Estimote Beacons con tecnología Ultra-Wideband (UWB), cuya precisión y facilidad de conexión brindan una ventaja considerable en comparación con tecnologías previamente utilizadas, como los códigos QR.
+
+Este trabajo, al ser parte de un megaproyecto en curso, busca fortalecer y mejorar la versión previa de la aplicación desarrollada por generaciones anteriores, proponiendo avances significativos en la precisión de la localización y en la experiencia del usuario. La solución no solo resolverá problemas existentes, sino que también funcionará como base tecnológica para futuras generaciones de estudiantes que podrán continuar desarrollando y afinando la herramienta.
+
+Finalmente, este proyecto aporta a la universidad al fortalecer su imagen como institución innovadora, capaz de generar soluciones tecnológicas útiles y vanguardistas dentro de su propio entorno. Comunica el potencial de sus estudiantes para abordar problemas reales mediante el uso creativo y riguroso del conocimiento adquirido, posicionando a la UVG como una universidad comprometida con la tecnología, la accesibilidad y la experiencia estudiantil.}
+
+\newpage
+\section{Marco Teórico}
+\subsection{Estimote Beacons y Tecnologías de Posicionamiento}
+\begin{enumerate}[label=\thesubsection.\arabic*]
+\item  Estimote UWB y BLE  
+
+Estimote Beacons utilizan dos tecnologías clave: Bluetooth Low Energy (BLE) y Ultra Wide Band (UWB). Aunque UWB ofrece mayor precisión en la medición de distancia (alrededor de 10-30 cm), su mayor limitación es que solo permite una conexión simultánea entre un beacon y un dispositivo.
+Por otro lado, BLE permite múltiples conexiones simultáneas, lo cual lo hace más adecuado para un sistema con múltiples usuarios. Según la documentación oficial de Estimote, los Estimote Proximity Beacons pueden gestionar múltiples conexiones BLE, permitiendo que varios dispositivos escaneen simultáneamente la señal del mismo beacon.
+
+En este proyecto se priorizará BLE sobre UWB, ya que se busca soportar múltiples usuarios conectados al mismo tiempo a los sensores instalados en el campus.
+
+\item Triangulación / Trilateración
+
+El posicionamiento mediante beacons BLE se basa generalmente en trilateración, que utiliza la intensidad de la señal (RSSI) desde tres o más puntos conocidos para estimar la posición del dispositivo.
+Este método no requiere que el usuario esté exactamente dentro del triángulo formado por los sensores, pero su precisión puede verse afectada por la interferencia, los obstáculos físicos y la calidad del modelo de atenuación de la señal.
+
+Además, se pueden considerar enfoques híbridos con técnicas de suavizado, como el filtro de Kalman, para estabilizar las posiciones estimadas, especialmente considerando que el dispositivo se conectará y desconectará dinámicamente a medida que se mueva por el campus.
+\end{enumerate}
+
+
+\subsection{Algoritmos de Pathfinding}
+\begin{enumerate}[label=\thesubsection.\arabic*]
+    \item Algoritmo A*  
+        
+    A* es un algoritmo de búsqueda de caminos que encuentra la ruta más corta entre dos puntos usando heurísticas. Es ideal para mapas representados como grafos o grids, y puede adaptarse para funcionar de forma eficiente en entornos donde se necesita recalcular la ruta constantemente, como cuando el usuario cambia su trayectoria.
+
+    Su complejidad es O(E), donde E representa el número de aristas exploradas. La eficiencia depende de la heurística utilizada, comúnmente la distancia Euclidiana o Manhattan.
+
+    \item Alternativas ligeras
+    
+    Si se requiere una solución más simple o rápida, se podrían usar variantes como:
+	
+    \begin{itemize}
+        \item Dijkstra, que garantiza el camino más corto pero sin heurísticas.
+        \item Greedy Best-First Search, que solo usa heurística pero puede no encontrar la mejor ruta.
+        \item Jump Point Search, en caso se use un grid uniforme, para acelerar A*.
+    \end{itemize}
+
+    En todos los casos, es importante que el algoritmo pueda adaptarse a cambios dinámicos, dado que el usuario puede desviarse y se requerirá una recalculación de la ruta en tiempo real.
+\end{enumerate}
+
+
+\subsection{Desarrollo con Unity y AR Foundation}
+\begin{enumerate}[label=\thesubsection.\arabic*]
+    \item Unity como motor de desarrollo
+    
+    Unity es una plataforma de desarrollo en tiempo real que permite crear experiencias interactivas 3D y 2D. Para este proyecto se usará con enfoque en realidad aumentada.
+
+    \item AR Foundation
+    
+    AR Foundation es un framework de Unity que permite desarrollar aplicaciones de realidad aumentada multiplataforma, utilizando las capacidades de ARKit (iOS) y ARCore (Android). Proporciona abstracciones para detectar planos, posicionamiento espacial, anclajes, y renderizado de objetos 3D.
+
+    Este framework permite superponer información sobre el entorno físico detectado por la cámara del dispositivo móvil, lo cual es esencial para presentar visualmente el camino a seguir dentro del tour guiado.
+
+\end{enumerate}
+
+\subsection{Comunicación BLE y Escaneo desde el Dispositivo}
+\begin{enumerate}[label=\thesubsection.\arabic*]
+    \item BLE Scanning en dispositivos móviles
+    
+    Los dispositivos móviles modernos permiten escanear beacons BLE en segundo plano, obteniendo información como el UUID, el RSSI y el major/minor del beacon.
+    En Android, esto puede hacerse utilizando la API BluetoothLeScanner, y en iOS mediante CoreBluetooth.
+
+    El sistema propuesto requiere una conexión robusta y simultánea a varios beacons para poder realizar estimaciones de posición, por lo que el escaneo debe ser eficiente y tolerante a desconexiones momentáneas.
+\end{enumerate}
+
+
+\section{Bibliografía}
+\begin{itemize} 
+    % Bibliografia del marco teorico
+    \item  Estimote, Inc. (n.d.). Estimote Proximity SDK. Estimote Documentation. Recuperado de: \url{https://developer.estimote.com/proximity/android-tutorial/}
+    
+    \item Estimote, Inc. (n.d.). Estimote Location Beacons: UWB and BLE. Estimote Documentation. Recuperado de: \url{https://developer.estimote.com/proximity/ultra-wideband/}
+	
+	\item Unity Technologies. (n.d.). AR Foundation overview. Unity Documentation. Recuperado de: \url{https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@5.0/manual/index.html}
+	
+	\item Unity Technologies. (n.d.). Unity Manual: ARKit and ARCore with AR Foundation. Recuperado de: \url{https://docs.unity3d.com/Manual/com.unity.xr.arfoundation.html}
+	
+	\item Hart, P. E., Nilsson, N. J., \& Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107. \url{https://doi.org/10.1109/TSSC.1968.300136}
+	
+	\item Thrun, S., Burgard, W., \& Fox, D. (2005). Probabilistic Robotics. MIT Press.
+	
+	\item Google. (n.d.). Bluetooth Low Energy overview | Android Developers. Recuperado de: \url{https://developer.android.com/guide/topics/connectivity/bluetooth-le}
+	
+	\item Apple Inc. (n.d.). Core Bluetooth Overview. Recuperado de: \url{https://developer.apple.com/documentation/corebluetooth}
+\end{itemize}
 
 \end{document}
