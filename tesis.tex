@@ -192,6 +192,100 @@ Además, se pueden considerar enfoques híbridos con técnicas de suavizado, com
 \end{enumerate}
 
 
+\section{Metodología}
+\subsection{Introducción}
+
+Para alcanzar los objetivos planteados en este proyecto, se ha diseñado una metodología de carácter \textbf{experimental} que combina conocimientos de programación, redes, sensores y realidad aumentada. La implementación se divide en fases que abordan el mapeo del campus, la integración de sensores y la navegación por medio de un sistema de realidad aumentada.
+
+\subsection{Tipo de investigación}
+
+La investigación realizada es de tipo \textbf{experimental}, ya que se basa en la prueba, validación y ajuste continuo de tecnologías y algoritmos en un entorno real. Esto permite adaptar las soluciones conforme se identifican oportunidades de mejora durante el desarrollo.
+
+\subsection{Metodología estructurada por objetivos}
+
+\subsubsection{Objetivo 1: Realizar el mapeo de la universidad para determinar la ubicación óptima de los sensores Estimote Beacons con tecnología UWB}
+
+\begin{itemize}
+    \item \textbf{Fase 1: Análisis del entorno} \\
+    Se utilizará un modelo 3D ya existente del campus, previamente construido con base en planos oficiales y validado manualmente.
+
+    \item \textbf{Fase 2: Planificación de distribución} \\
+    Se propondrá una distribución preliminar de los sensores siguiendo un patrón en zigzag, buscando una cobertura eficiente. Esta hipótesis será validada mediante pruebas de campo.
+
+    \item \textbf{Fase 3: Validación de ubicación} \\
+    Se colocarán sensores físicamente en puntos estratégicos y se realizarán pruebas de señal para determinar la calidad y precisión. Se explorarán configuraciones alternativas si los resultados no son satisfactorios.
+\end{itemize}
+
+\textit{Herramientas y conocimientos aplicados:} propagación de señales, redes inalámbricas, análisis espacial.
+
+\subsubsection{Objetivo 2: Configurar e integrar los sensores Estimote Beacons en la aplicación de realidad aumentada}
+
+\begin{itemize}
+    \item \textbf{Fase 1: Lectura y conexión de sensores} \\
+    Se implementarán módulos nativos para Android e iOS capaces de conectarse con los Estimote Beacons utilizando sus respectivos SDKs.
+
+    \item \textbf{Fase 2: Comunicación entre módulos y Unity} \\
+    Se desarrollarán plugins personalizados para enviar los datos recogidos por los sensores a Unity. Se evaluarán dos opciones: procesar datos nativamente y enviar resultados, o enviar datos crudos a Unity para procesarlos allí, priorizando eficiencia.
+
+    \item \textbf{Fase 3: Complementación con sensores del dispositivo} \\
+    Se combinará la información de los beacons con los datos del giroscopio del dispositivo móvil para mejorar la precisión de la localización y suavizar la experiencia del usuario en caso de latencias.
+\end{itemize}
+
+\textit{Herramientas y conocimientos aplicados:} programación de plataformas móviles, interacción entre capas nativas y motores gráficos, fundamentos de sensores y microprocesadores.
+
+\subsubsection{Objetivo 3: Optimizar el algoritmo de pathfinding para generar rutas accesibles y mejorar la experiencia del usuario}
+
+\begin{itemize}
+    \item \textbf{Fase 1: Definición del grafo de navegación} \\
+    Se colocarán nodos clave dentro del modelo 3D del campus para representar ubicaciones importantes. Estos nodos y sus conexiones formarán el grafo utilizado para el pathfinding.
+
+    \item \textbf{Fase 2: Implementación del pathfinding} \\
+    Inicialmente se utilizará el módulo de navegación de Unity. Si los resultados no son óptimos, se evaluarán alternativas como A* o Dijkstra.
+
+    \item \textbf{Fase 3: Evaluación de rendimiento} \\
+    Se medirán tiempos de cálculo, uso de memoria, consumo de CPU y tiempos de respuesta. Se prioriza la experiencia fluida del usuario mediante la sincronización entre su movimiento y la visualización de rutas.
+\end{itemize}
+
+\textit{Herramientas y conocimientos aplicados:} estructuras de datos, optimización de algoritmos, Unity Navigation, AR Foundation.
+
+\subsection{Recolección de datos}
+
+Los datos a recolectar incluyen:
+
+\begin{itemize}
+    \item Distancia estimada entre usuario y sensores (medida directamente o inferida por intensidad de señal).
+    \item Datos de orientación y desplazamiento proporcionados por el giroscopio del dispositivo móvil.
+    \item Tiempos de respuesta de sensores y eficiencia del sistema de navegación.
+    \item Precisión de localización comparando posición estimada con posición real.
+\end{itemize}
+
+Las pruebas se realizarán de forma interna y controlada dentro del campus utilizando distintos dispositivos compatibles.
+
+\subsection{Análisis de datos}
+
+Los datos recolectados serán analizados para:
+
+\begin{itemize}
+    \item Evaluar precisión de localización.
+    \item Comparar rendimiento entre diferentes configuraciones.
+    \item Validar la integración del sistema bajo condiciones reales de uso.
+\end{itemize}
+
+Se utilizarán herramientas como \textit{profilers} de Unity, logs del sistema y pruebas de campo.
+
+\subsection{Consideraciones éticas}
+
+Aunque esta fase del proyecto no implica interacción directa con usuarios reales, en etapas futuras se deberá:
+
+\begin{itemize}
+    \item Obtener consentimiento informado.
+    \item Proteger la privacidad de los datos de localización.
+    \item Ser transparentes en el uso de la información recolectada.
+\end{itemize}
+
+Actualmente, todos los datos utilizados son técnicos y se obtienen mediante pruebas internas controladas.
+
+\newpage
 \section{Bibliografía}
 \begin{itemize} 
     % Bibliografia del marco teorico
