@@ -220,12 +220,23 @@ La investigación realizada es de tipo \textbf{experimental}, ya que se basa en 
 
 \subsubsection{Objetivo 2: Configurar e integrar los sensores Estimote Beacons en la aplicación de realidad aumentada}
 
+
 \begin{itemize}
     \item \textbf{Fase 1: Lectura y conexión de sensores} \\
     Se implementarán módulos nativos para Android e iOS capaces de conectarse con los Estimote Beacons utilizando sus respectivos SDKs.
 
     \item \textbf{Fase 2: Comunicación entre módulos y Unity} \\
-    Se desarrollarán plugins personalizados para enviar los datos recogidos por los sensores a Unity. Se evaluarán dos opciones: procesar datos nativamente y enviar resultados, o enviar datos crudos a Unity para procesarlos allí, priorizando eficiencia.
+    Debido a que el SDK de los sensores UWB sólo está disponible para plataformas nativas (iOS o Android), se ha optado por una arquitectura basada en \textbf{plugins nativos para Unity}. Estos plugins permiten que el código nativo, encargado de la conexión con los sensores, pueda interactuar con Unity.
+
+    El flujo de datos contempla dos posibles alternativas que se evaluarán según rendimiento:
+    \begin{itemize}
+        \item Procesar la trilateración y manejo de sensores de forma nativa y luego enviar los resultados (posición estimada) a Unity mediante el plugin.
+        \item Enviar los datos crudos (como señales o distancias) a Unity a través del plugin y realizar el procesamiento dentro de Unity.
+    \end{itemize}
+
+    Se elegirá la opción más eficiente en función de pruebas de rendimiento y facilidad de integración. Posteriormente, una vez se tenga la posición estimada del usuario, se utilizará \textbf{ARFoundation de Unity} para presentar los elementos en realidad aumentada de forma sincronizada con el entorno físico.
+
+    Además, se aprovecharán los sensores del dispositivo móvil como el \textbf{giroscopio} para complementar los datos recibidos de los sensores UWB, mejorando la precisión y la experiencia del usuario final, especialmente en escenarios donde exista latencia o pérdida temporal de señal.
 
     \item \textbf{Fase 3: Complementación con sensores del dispositivo} \\
     Se combinará la información de los beacons con los datos del giroscopio del dispositivo móvil para mejorar la precisión de la localización y suavizar la experiencia del usuario en caso de latencias.
