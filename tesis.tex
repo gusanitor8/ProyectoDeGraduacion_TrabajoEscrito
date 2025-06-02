@@ -4,6 +4,11 @@
 \usepackage{ragged2e} % justify text
 \usepackage{enumitem} % enumeration within subsection
 \usepackage{url} % inserting links and urls
+
+\usepackage{pdflscape} % Horizontal page orientation
+\usepackage{booktabs}  % For \toprule, \midrule and \bottomrule
+\usepackage{float} 
+
 \usepackage[letterpaper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
 
 \setlength{\parskip}{1em} % we increase paragraph spacing
@@ -73,20 +78,17 @@
 
 \setcounter{page}{1} % Start page numbering from page 1
 
-\section{Objetivos}
-\subsection{Objetivo General}
-{\justify Desarrollar e implementar un sistema de localización y navegación basado en realidad aumentada para la Universidad 
-del Valle de Guatemala, utilizando sensores Estimote Beacons con tecnología UWB y mejorando el algoritmo de pathfinding para 
-optimizar la experiencia del usuario.}
+\section{Abstract}
+{\justify This project aims to develop an augmented reality application for virtual tours within the campus of Universidad del Valle de Guatemala, integrating a precise navigation system using Estimote Beacons with Ultra-Wideband (UWB) technology. The solution seeks to improve orientation for students, visitors, and individuals with disabilities by facilitating movement between various campus locations through an interactive and accessible guide.
 
-\subsection{Objetivos Específicos}
-\begin{enumerate}[label=\thesubsection.\arabic*]
-    \item Realizar el mapeo de la universidad para determinar la ubicación óptima de los sensores Estimote Beacons con tecnología UWB.
-    \item Configurar e integrar los sensores Estimote Beacons en la aplicación de realidad aumentada para mejorar la precisión de la 
-    localización dentro del campus.
-    \item Optimizar el algoritmo de pathfinding para generar rutas accesibles y mejorar la experiencia del usuario al navegar por la 
-    universidad.
-\end{enumerate}
+Unlike previous versions based on QR codes, this proposal leverages UWB to achieve more accurate and reliable positioning. The project includes campus mapping to strategically place sensors, the development of a communication architecture between mobile devices and the application built in Unity with AR Foundation, as well as the optimization of pathfinding algorithms—primarily A*—to generate efficient and adaptable routes in real time. This initiative represents a significant step forward in enhancing the university experience through the use of emerging technologies in localization and augmented reality.}
+
+\section{Resumen}
+{\justify Este proyecto tiene como objetivo desarrollar una aplicación de realidad aumentada para recorridos virtuales dentro del campus de la Universidad del Valle de Guatemala, integrando un sistema de navegación precisa mediante sensores Estimote Beacons con tecnología Ultra-Wideband (UWB). La solución busca mejorar la orientación de estudiantes, visitantes y personas con discapacidad, facilitando el desplazamiento entre distintos puntos del campus a través de una guía interactiva y accesible.
+
+A diferencia de versiones previas basadas en códigos QR, esta propuesta utiliza UWB para lograr una localización más exacta y confiable. El proyecto abarca el mapeo del campus para ubicar estratégicamente los sensores, el desarrollo de una arquitectura de comunicación entre dispositivos móviles y la aplicación construida en Unity con AR Foundation, así como la optimización de algoritmos de pathfinding, principalmente A*, para generar rutas eficientes y adaptables en tiempo real. Esta iniciativa representa un avance significativo en la mejora de la experiencia universitaria mediante el uso de tecnologías emergentes en localización y realidad aumentada.}
+
+\newpage
 
 \section{Introducción}
 {\justify
@@ -111,6 +113,22 @@ contribuirá a una experiencia más fluida y efectiva al desplazarse dentro del 
 indicaciones precisas y usables en diferentes escenarios.A través de este trabajo, se espera ofrecer una solución innovadora y 
 funcional que aproveche las capacidades de la realidad aumentada y la localización UWB para facilitar la movilidad dentro de la UVG,
  mejorando la orientación y accesibilidad dentro del campus universitario.}
+\newpage
+
+\section{Objetivos}
+\subsection{Objetivo general}
+{\justify Desarrollar e implementar un sistema de localización y navegación basado en realidad aumentada para la Universidad 
+del Valle de Guatemala, utilizando sensores Estimote Beacons con tecnología UWB y mejorando el algoritmo de pathfinding para 
+optimizar la experiencia del usuario.}
+
+\subsection{Objetivos específicos}
+\begin{enumerate}[label=\thesubsection.\arabic*]
+    \item Realizar el mapeo de la universidad para determinar la ubicación óptima de los sensores Estimote Beacons con tecnología UWB.
+    \item Configurar e integrar los sensores Estimote Beacons en la aplicación de realidad aumentada para mejorar la precisión de la 
+    localización dentro del campus.
+    \item Optimizar el algoritmo de pathfinding para generar rutas accesibles y mejorar la experiencia del usuario al navegar por la 
+    universidad.
+\end{enumerate}
 
 \newpage
 \section{Justificación}
@@ -127,7 +145,7 @@ Finalmente, este proyecto aporta a la universidad al fortalecer su imagen como i
 
 \newpage
 \section{Marco Teórico}
-\subsection{Estimote Beacons y Tecnologías de Posicionamiento}
+\subsection{Estimote Beacons y tecnologías de posicionamiento}
 \begin{enumerate}[label=\thesubsection.\arabic*]
 \item  Estimote UWB y BLE  
 
@@ -145,7 +163,7 @@ Además, se pueden considerar enfoques híbridos con técnicas de suavizado, com
 \end{enumerate}
 
 
-\subsection{Algoritmos de Pathfinding}
+\subsection{Algoritmos de pathfinding}
 \begin{enumerate}[label=\thesubsection.\arabic*]
     \item Algoritmo A*  
         
@@ -181,7 +199,7 @@ Además, se pueden considerar enfoques híbridos con técnicas de suavizado, com
 
 \end{enumerate}
 
-\subsection{Comunicación BLE y Escaneo desde el Dispositivo}
+\subsection{Comunicación BLE y escaneo desde el dispositivo}
 \begin{enumerate}[label=\thesubsection.\arabic*]
     \item BLE Scanning en dispositivos móviles
     
@@ -219,7 +237,6 @@ La investigación realizada es de tipo \textbf{experimental}, ya que se basa en 
 \textit{Herramientas y conocimientos aplicados:} propagación de señales, redes inalámbricas, análisis espacial.
 
 \subsubsection{Objetivo 2: Configurar e integrar los sensores Estimote Beacons en la aplicación de realidad aumentada}
-
 
 \begin{itemize}
     \item \textbf{Fase 1: Lectura y conexión de sensores} \\
@@ -297,6 +314,61 @@ Aunque esta fase del proyecto no implica interacción directa con usuarios reale
 Actualmente, todos los datos utilizados son técnicos y se obtienen mediante pruebas internas controladas.
 
 \newpage
+\begin{landscape}
+    \section{Cronograma}
+
+    \begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{@{}lcccccccccccccccccccccccc@{}}
+        \toprule
+        \textbf{Semana}                                               & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24  \\ 
+        \midrule
+        Investigación sobre UWB Estimote Beacons                      & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Demostración en la UVG con QR                                 & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Reunión con antecesor del proyecto                            & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Investigación sobre Unity Plugins                             & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Prueba de concepto con plugins                                & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Integración Estimote SDK + Unity                              & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Implementación plugin Android – conexión                      & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Implementación plugin iOS – conexión                          & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Algoritmo de trilateración básico                             & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Optimización de performance (trilateración)                   & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Integración en Unity y testeo multiplataforma                 & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Documentación técnica del sistema                             & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        Preparación para entrega y presentación final                 & & & & & & & & & & & & & & & & & & & & & & & & \\ 
+        \bottomrule
+    \end{tabular}
+    \caption{Cronograma de actividades del proyecto (semanas 1 - 24 ).}
+    \end{table}
+
+
+    \begin{table}[H]
+        \centering
+        \small
+        \begin{tabular}{@{}lccccccccccc@{}}
+            \toprule
+            \textbf{Semana}                                               & 25 & 26 & 27 & 28 & 29 & 30 & 31 & 32 & 33 & 34 & 35 \\ 
+            \midrule
+            Investigación sobre UWB Estimote Beacons                      & & & & & & & & & & & \\ 
+            Demostración en la UVG con QR                                 & & & & & & & & & & & \\ 
+            Reunión con antecesor del proyecto                            & & & & & & & & & & & \\ 
+            Investigación sobre Unity Plugins                             & & & & & & & & & & & \\ 
+            Prueba de concepto con plugins                                & & & & & & & & & & & \\ 
+            Integración Estimote SDK + Unity                              & & & & & & & & & & & \\ 
+            Implementación plugin Android – conexión                      & & & & & & & & & & & \\ 
+            Implementación plugin iOS – conexión                          & & & & & & & & & & & \\ 
+            Algoritmo de trilateración básico                             & & & & & & & & & & & \\ 
+            Optimización de performance (trilateración)                   & & & & & & & & & & & \\ 
+            Integración en Unity y testeo multiplataforma                 & & & & & & & & & & & \\ 
+            Documentación técnica del sistema                             & & & & & & & & & & & \\ 
+            Preparación para entrega y presentación final                 & & & & & & & & & & & \\ 
+            \bottomrule
+        \end{tabular}
+        \caption{Cronograma de actividades del proyecto (semanas 25 - 35 ).}
+        \end{table}
+\end{landscape}
+
 \section{Bibliografía}
 \begin{itemize} 
     % Bibliografia del marco teorico
