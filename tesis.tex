@@ -8,6 +8,7 @@
 \usepackage{pdflscape} % Horizontal page orientation
 \usepackage{booktabs}  % For \toprule, \midrule and \bottomrule
 \usepackage{float} 
+\usepackage[spanish]{babel}
 
 \usepackage[letterpaper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
 
@@ -71,22 +72,30 @@
         
     \end{doublespace}
     \end{center}
-
-
 % end of cover section
 
+% begin table of contents
+\tableofcontents
+\newpage
+% end table of contents
 
 \setcounter{page}{1} % Start page numbering from page 1
 
 \section{Abstract}
-{\justify This project aims to develop an augmented reality application for virtual tours within the campus of Universidad del Valle de Guatemala, integrating a precise navigation system using Estimote Beacons with Ultra-Wideband (UWB) technology. The solution seeks to improve orientation for students, visitors, and individuals with disabilities by facilitating movement between various campus locations through an interactive and accessible guide.
+{\justify This project aims to develop a precise location system for an augmented reality application that guides users around the campus of the Universidad del Valle de Guatemala. The system is based on Estimote Beacons with Ultra-Wideband (UWB) technology and is designed to integrate with Unity through a native plugin that enables real-time communication between mobile devices and location sensors.
 
-Unlike previous versions based on QR codes, this proposal leverages UWB to achieve more accurate and reliable positioning. The project includes campus mapping to strategically place sensors, the development of a communication architecture between mobile devices and the application built in Unity with AR Foundation, as well as the optimization of pathfinding algorithms—primarily A*—to generate efficient and adaptable routes in real time. This initiative represents a significant step forward in enhancing the university experience through the use of emerging technologies in localization and augmented reality.}
+Unlike previous solutions that relied on QR codes or sensor fusion techniques subject to cumulative errors, this proposal employs Kalman filter-assisted trilateration to more reliably estimate the user's position in 2D coordinates. The system will be able to transmit this data to Unity, where it will be used to render augmented reality elements that guide the user around the campus.
+
+The project is part of a larger ongoing initiative and focuses on the technical implementation of the positioning module, laying the groundwork for future cross-platform extensions. This technological solution significantly contributes to improving the on-campus wayfinding experience and represents an example of the practical use of emerging technologies in localization, signal filtering, and interactive mobile application development.}
 
 \section{Resumen}
-{\justify Este proyecto tiene como objetivo desarrollar una aplicación de realidad aumentada para recorridos virtuales dentro del campus de la Universidad del Valle de Guatemala, integrando un sistema de navegación precisa mediante sensores Estimote Beacons con tecnología Ultra-Wideband (UWB). La solución busca mejorar la orientación de estudiantes, visitantes y personas con discapacidad, facilitando el desplazamiento entre distintos puntos del campus a través de una guía interactiva y accesible.
+{\justify
+Este proyecto tiene como objetivo desarrollar un sistema de localización precisa para una aplicación de realidad aumentada que guía a los usuarios dentro del campus de la Universidad del Valle de Guatemala. El sistema se basa en sensores Estimote Beacons con tecnología Ultra-Wideband (UWB) y está diseñado para integrarse con Unity mediante un plugin nativo que permite la comunicación en tiempo real entre los dispositivos móviles y los sensores de localización.
 
-A diferencia de versiones previas basadas en códigos QR, esta propuesta utiliza UWB para lograr una localización más exacta y confiable. El proyecto abarca el mapeo del campus para ubicar estratégicamente los sensores, el desarrollo de una arquitectura de comunicación entre dispositivos móviles y la aplicación construida en Unity con AR Foundation, así como la optimización de algoritmos de pathfinding, principalmente A*, para generar rutas eficientes y adaptables en tiempo real. Esta iniciativa representa un avance significativo en la mejora de la experiencia universitaria mediante el uso de tecnologías emergentes en localización y realidad aumentada.}
+A diferencia de soluciones anteriores que dependían de códigos QR o técnicas de sensor fusion sujetas a errores acumulativos, esta propuesta emplea trilateración asistida por filtros de Kalman para estimar con mayor estabilidad la posición del usuario en coordenadas 2D. El sistema será capaz de transmitir estos datos a Unity, donde se utilizan para renderizar elementos de realidad aumentada que guían al usuario por el campus.
+
+El proyecto forma parte de una iniciativa mayor en curso y se enfoca en la implementación técnica del módulo de posicionamiento, sentando las bases para futuras extensiones multiplataforma. Esta solución tecnológica contribuye significativamente a mejorar la experiencia de orientación dentro del campus y representa un ejemplo del uso práctico de tecnologías emergentes en localización, filtrado de señales y desarrollo de aplicaciones móviles interactivas.
+}
 
 \newpage
 
@@ -194,105 +203,127 @@ En el caso de este proyecto, se desarrolla un plugin en Swift que se encarga de 
 \section{Metodología}
 \subsection{Introducción}
 
-Para alcanzar los objetivos planteados en este proyecto, se ha diseñado una metodología de carácter \textbf{experimental} que combina conocimientos de programación, redes, sensores y realidad aumentada. La implementación se divide en fases que abordan el mapeo del campus, la integración de sensores y la navegación por medio de un sistema de realidad aumentada.
+
+Para alcanzar los objetivos planteados en este proyecto, se ha diseñado una metodología de carácter \textbf{experimental}, centrada en la integración de sensores UWB, el desarrollo de plugins nativos para iOS y su comunicación con el motor gráfico Unity. El enfoque se basa en el diseño, implementación, prueba y ajuste de algoritmos y módulos de software dentro de un entorno controlado y real, específicamente el edificio del Centro de Innovación y Tecnología de la Universidad del Valle de Guatemala.
 
 \subsection{Tipo de investigación}
 
-La investigación realizada es de tipo \textbf{experimental}, ya que se basa en la prueba, validación y ajuste continuo de tecnologías y algoritmos en un entorno real. Esto permite adaptar las soluciones conforme se identifican oportunidades de mejora durante el desarrollo.
+La investigación es de tipo \textbf{experimental aplicada}, ya que se basa en la validación empírica de una solución tecnológica diseñada para resolver un problema específico del entorno universitario. A través de pruebas funcionales, análisis de datos y evaluación cualitativa, se busca comprobar la viabilidad y efectividad de un sistema de localización en tiempo real, integrable con una aplicación de realidad aumentada.
 
 \subsection{Metodología estructurada por objetivos}
 
-\subsubsection{Objetivo 1: Realizar el mapeo de la universidad para determinar la ubicación óptima de los sensores Estimote Beacons con tecnología UWB}
+\subsubsection{Objetivo 1: Diseñar e implementar un algoritmo de trilateración para estimar la posición 2D del usuario}
+
 
 \begin{itemize}
-    \item \textbf{Fase 1: Análisis del entorno} \\
-    Se utilizará un modelo 3D ya existente del campus, previamente construido con base en planos oficiales y validado manualmente.
+    \item \textbf{Fase 1: Diseño del algoritmo} \\
+    Se definirá un modelo matemático basado en trilateración 2D utilizando coordenadas cartesianas. El algoritmo tomará como entrada las distancias a múltiples sensores UWB y devolverá una estimación de posición en el plano.
 
-    \item \textbf{Fase 2: Planificación de distribución} \\
-    Se propondrá una distribución preliminar de los sensores siguiendo un patrón en zigzag, buscando una cobertura eficiente. Esta hipótesis será validada mediante pruebas de campo.
+    \item \textbf{Fase 2: Desarrollo del algoritmo} \\
+    El algoritmo será implementado en Swift como parte del plugin nativo para iOS. Se probará inicialmente en entornos controlados utilizando distancias simuladas y luego con datos reales de los sensores Estimote.
 
-    \item \textbf{Fase 3: Validación de ubicación} \\
-    Se colocarán sensores físicamente en puntos estratégicos y se realizarán pruebas de señal para determinar la calidad y precisión. Se explorarán configuraciones alternativas si los resultados no son satisfactorios.
+    \item \textbf{Fase 3: Validación funcional} \\
+    Se realizarán pruebas en campo para verificar la estabilidad del algoritmo, observando la coherencia espacial de las posiciones calculadas frente al movimiento del usuario.
 \end{itemize}
 
-\textit{Herramientas y conocimientos aplicados:} propagación de señales, redes inalámbricas, análisis espacial.
+\textit{Herramientas y conocimientos aplicados:} geometría analítica, programación orientada a objetos, desarrollo en Swift, teoría de localización.
 
-\subsubsection{Objetivo 2: Configurar e integrar los sensores Estimote Beacons en la aplicación de realidad aumentada}
+\subsubsection{Objetivo 2: Integrar el SDK nativo de Estimote con Unity mediante un plugin de comunicación en tiempo real}
 
 \begin{itemize}
-    \item \textbf{Fase 1: Lectura y conexión de sensores} \\
-    Se implementarán módulos nativos para Android e iOS capaces de conectarse con los Estimote Beacons utilizando sus respectivos SDKs.
+    \item \textbf{Fase 1: Conexión con sensores UWB} \\
+    Se desarrollará un módulo nativo en Swift capaz de escanear, conectar y recibir datos de los sensores Estimote UWB, utilizando el SDK oficial proporcionado por el fabricante.
 
-    \item \textbf{Fase 2: Comunicación entre módulos y Unity} \\
-    Debido a que el SDK de los sensores UWB sólo está disponible para plataformas nativas (iOS o Android), se ha optado por una arquitectura basada en \textbf{plugins nativos para Unity}. Estos plugins permiten que el código nativo, encargado de la conexión con los sensores, pueda interactuar con Unity.
+    \item \textbf{Fase 2: Desarrollo del plugin para Unity} \\
+    Se diseñará un plugin nativo que actúe como puente entre el código Swift y el entorno Unity, permitiendo transmitir datos de posicionamiento en tiempo real.
 
-    El flujo de datos contempla dos posibles alternativas que se evaluarán según rendimiento:
-    \begin{itemize}
-        \item Procesar la trilateración y manejo de sensores de forma nativa y luego enviar los resultados (posición estimada) a Unity mediante el plugin.
-        \item Enviar los datos crudos (como señales o distancias) a Unity a través del plugin y realizar el procesamiento dentro de Unity.
-    \end{itemize}
-
-    Se elegirá la opción más eficiente en función de pruebas de rendimiento y facilidad de integración. Posteriormente, una vez se tenga la posición estimada del usuario, se utilizará \textbf{ARFoundation de Unity} para presentar los elementos en realidad aumentada de forma sincronizada con el entorno físico.
-
-    Además, se aprovecharán los sensores del dispositivo móvil como el \textbf{giroscopio} para complementar los datos recibidos de los sensores UWB, mejorando la precisión y la experiencia del usuario final, especialmente en escenarios donde exista latencia o pérdida temporal de señal.
-
-    \item \textbf{Fase 3: Complementación con sensores del dispositivo} \\
-    Se combinará la información de los beacons con los datos del giroscopio del dispositivo móvil para mejorar la precisión de la localización y suavizar la experiencia del usuario en caso de latencias.
+    \item \textbf{Fase 3: Validación de la comunicación} \\
+    Se probará la integración verificando la correcta recepción y actualización de coordenadas dentro de Unity, así como el rendimiento del sistema en condiciones reales de uso.
 \end{itemize}
 
-\textit{Herramientas y conocimientos aplicados:} programación de plataformas móviles, interacción entre capas nativas y motores gráficos, fundamentos de sensores y microprocesadores.
+\textit{Herramientas y conocimientos aplicados:} desarrollo iOS, SDK Estimote UWB, integración de plugins nativos, interoperabilidad entre plataformas.
 
-\subsubsection{Objetivo 3: Optimizar el algoritmo de pathfinding para generar rutas accesibles y mejorar la experiencia del usuario}
+\subsubsection{Objetivo 3: Aplicar filtrado con técnicas como el filtro de Kalman para reducir el jitter}
 
 \begin{itemize}
-    \item \textbf{Fase 1: Definición del grafo de navegación} \\
-    Se colocarán nodos clave dentro del modelo 3D del campus para representar ubicaciones importantes. Estos nodos y sus conexiones formarán el grafo utilizado para el pathfinding.
+    \item \textbf{Fase 1: Recolección de datos crudos} \\
+    Se recopilarán datos en tiempo real de la trilateración y del acelerómetro del dispositivo móvil mediante CoreMotion.
 
-    \item \textbf{Fase 2: Implementación del pathfinding} \\
-    Inicialmente se utilizará el módulo de navegación de Unity. Si los resultados no son óptimos, se evaluarán alternativas como A* o Dijkstra.
+    \item \textbf{Fase 2: Implementación del filtro de Kalman} \\
+    Se desarrollará un módulo en Swift que aplique el filtro de Kalman a las posiciones estimadas, utilizando como entradas tanto las mediciones UWB como la aceleración registrada.
 
-    \item \textbf{Fase 3: Evaluación de rendimiento} \\
-    Se medirán tiempos de cálculo, uso de memoria, consumo de CPU y tiempos de respuesta. Se prioriza la experiencia fluida del usuario mediante la sincronización entre su movimiento y la visualización de rutas.
+    \item \textbf{Fase 3: Análisis de estabilidad} \\
+    Se evaluará la efectividad del filtrado mediante visualización de trayectorias y análisis del ruido residual en las posiciones. Se priorizará la precisión (consistencia) sobre la exactitud absoluta.
 \end{itemize}
 
-\textit{Herramientas y conocimientos aplicados:} estructuras de datos, optimización de algoritmos, Unity Navigation, AR Foundation.
+\textit{Herramientas y conocimientos aplicados:} estadística aplicada, procesamiento de señales, sensores inerciales, programación de filtros.
+
+\subsubsection{Objetivo 4: Documentar exhaustivamente el desarrollo del plugin y su integración}
+
+\begin{itemize}
+    \item \textbf{Fase 1: Estructuración del código y módulos} \\
+    Se organizará el código del plugin de manera modular y reutilizable, con comentarios explicativos y convenciones de nomenclatura claras.
+
+    \item \textbf{Fase 2: Elaboración de documentación técnica} \\
+    Se redactará documentación detallada que describa la arquitectura del sistema, el funcionamiento interno del plugin, los flujos de datos y los pasos para su integración y reutilización.
+
+    \item \textbf{Fase 3: Publicación y entrega} \\
+    Toda la documentación será entregada junto al proyecto final y se dispondrá para futuras generaciones con el fin de facilitar la continuidad del megaproyecto.
+\end{itemize}
+
+\textit{Herramientas y conocimientos aplicados:} buenas prácticas de desarrollo, ingeniería de software, documentación técnica, diseño sostenible.
+
+\subsubsection{Objetivo 5: Evaluar cualitativamente la precisión y suavidad del sistema de localización}
+
+\begin{itemize}
+    \item \textbf{Fase 1: Pruebas de campo} \\
+    Se ejecutarán pruebas en zonas específicas del edificio para observar el comportamiento del sistema en movimiento y en reposo.
+
+    \item \textbf{Fase 2: Recolección y análisis de datos} \\
+    Se analizarán trayectorias, jitter, y ruido en las posiciones generadas. Se observará la estabilidad visual del sistema para el usuario final.
+
+    \item \textbf{Fase 3: Ajustes iterativos} \\
+    En caso de detectar irregularidades, se realizarán ajustes al algoritmo de trilateración o al filtro de Kalman hasta alcanzar una experiencia fluida.
+\end{itemize}
+
+\textit{Herramientas y conocimientos aplicados:} análisis de datos, visualización de trayectorias, pruebas empíricas, ajuste de parámetros.
 
 \subsection{Recolección de datos}
 
-Los datos a recolectar incluyen:
+Durante el desarrollo y validación del sistema se recopilarán los siguientes tipos de datos:
 
 \begin{itemize}
-    \item Distancia estimada entre usuario y sensores (medida directamente o inferida por intensidad de señal).
-    \item Datos de orientación y desplazamiento proporcionados por el giroscopio del dispositivo móvil.
-    \item Tiempos de respuesta de sensores y eficiencia del sistema de navegación.
-    \item Precisión de localización comparando posición estimada con posición real.
+    \item Distancias entre el dispositivo móvil y sensores UWB.
+    \item Coordenadas calculadas por el sistema de trilateración.
+    \item Aceleración y orientación medidas por el acelerómetro y giroscopio del dispositivo.
+    \item Registros de estabilidad (jitter) y continuidad de la trayectoria estimada.
 \end{itemize}
 
-Las pruebas se realizarán de forma interna y controlada dentro del campus utilizando distintos dispositivos compatibles.
+Todas las pruebas se llevarán a cabo dentro del campus universitario en condiciones controladas, utilizando dispositivos iOS compatibles con UWB.
 
 \subsection{Análisis de datos}
 
-Los datos recolectados serán analizados para:
+El análisis de datos se enfocará en:
 
 \begin{itemize}
-    \item Evaluar precisión de localización.
-    \item Comparar rendimiento entre diferentes configuraciones.
-    \item Validar la integración del sistema bajo condiciones reales de uso.
+    \item Cuantificar la estabilidad de las posiciones calculadas en reposo y en movimiento.
+    \item Visualizar trayectorias para detectar ruido o errores de salto.
+    \item Comparar el comportamiento del sistema con y sin filtrado aplicado.
 \end{itemize}
 
-Se utilizarán herramientas como \textit{profilers} de Unity, logs del sistema y pruebas de campo.
+Se utilizarán herramientas de análisis visual y gráficos generados mediante scripts personalizados en Swift o Python, según se requiera.
 
 \subsection{Consideraciones éticas}
 
-Aunque esta fase del proyecto no implica interacción directa con usuarios reales, en etapas futuras se deberá:
+Este proyecto no involucra usuarios reales en esta etapa, ni recopila información sensible. Sin embargo, se contemplan las siguientes buenas prácticas para futuras fases o generaciones:
 
 \begin{itemize}
-    \item Obtener consentimiento informado.
-    \item Proteger la privacidad de los datos de localización.
-    \item Ser transparentes en el uso de la información recolectada.
+    \item Solicitar consentimiento informado si se realizan pruebas con participantes.
+    \item Garantizar el anonimato de los datos de localización recolectados.
+    \item Usar la información únicamente con fines académicos y de mejora del sistema.
 \end{itemize}
 
-Actualmente, todos los datos utilizados son técnicos y se obtienen mediante pruebas internas controladas.
+Actualmente, todos los datos son técnicos y recopilados internamente por los desarrolladores en contextos controlados.
 
 \newpage
 
@@ -300,9 +331,9 @@ Actualmente, todos los datos utilizados son técnicos y se obtienen mediante pru
 
 % Image placement
 \vspace{15mm} 
-\includegraphics[width=1\textwidth]{images/cronograma.png}
+\includegraphics[width=1\textwidth]{images/cronograma2.png}
 {\begin{center}
-    Figura 1: Cronograma del proyecto para el primer semestre.
+    Figura 1: Cronograma del proyecto.
 \end{center}}
 \newpage
 
@@ -311,22 +342,29 @@ Actualmente, todos los datos utilizados son técnicos y se obtienen mediante pru
 
 \section{Bibliografía}
 \begin{itemize} 
-    % Bibliografia del marco teorico
-    \item  Estimote, Inc. (n.d.). Estimote Proximity SDK. Estimote Documentation. Recuperado de: \url{https://developer.estimote.com/proximity/android-tutorial/}
+    \item Estimote, Inc. (n.d.). \textit{Estimote Location Beacons: UWB and BLE}. Estimote Documentation. Recuperado de: \url{https://developer.estimote.com/proximity/ultra-wideband/}
     
-    \item Estimote, Inc. (n.d.). Estimote Location Beacons: UWB and BLE. Estimote Documentation. Recuperado de: \url{https://developer.estimote.com/proximity/ultra-wideband/}
-	
-	\item Unity Technologies. (n.d.). AR Foundation overview. Unity Documentation. Recuperado de: \url{https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@5.0/manual/index.html}
-	
-	\item Unity Technologies. (n.d.). Unity Manual: ARKit and ARCore with AR Foundation. Recuperado de: \url{https://docs.unity3d.com/Manual/com.unity.xr.arfoundation.html}
-	
-	\item Hart, P. E., Nilsson, N. J., \& Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107. \url{https://doi.org/10.1109/TSSC.1968.300136}
-	
-	\item Thrun, S., Burgard, W., \& Fox, D. (2005). Probabilistic Robotics. MIT Press.
-	
-	\item Google. (n.d.). Bluetooth Low Energy overview | Android Developers. Recuperado de: \url{https://developer.android.com/guide/topics/connectivity/bluetooth-le}
-	
-	\item Apple Inc. (n.d.). Core Bluetooth Overview. Recuperado de: \url{https://developer.apple.com/documentation/corebluetooth}
+    \item Estimote, Inc. (n.d.). \textit{Estimote Proximity SDK}. Estimote Documentation. Recuperado de: \url{https://developer.estimote.com/proximity/ios-tutorial/}
+    
+    \item Unity Technologies. (n.d.). \textit{AR Foundation overview}. Unity Documentation. Recuperado de: \url{https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@5.0/manual/index.html}
+    
+    \item Unity Technologies. (n.d.). \textit{Unity Manual: ARKit and ARCore with AR Foundation}. Recuperado de: \url{https://docs.unity3d.com/Manual/com.unity.xr.arfoundation.html}
+
+    \item Apple Inc. (n.d.). \textit{Developing a Custom Unity Plugin for iOS}. Apple Developer / Unity Integration Guides. Recuperado de: \url{https://developer.apple.com/documentation/}
+    
+    \item Google. (n.d.). \textit{Bluetooth Low Energy overview}. Android Developers. Recuperado de: \url{https://developer.android.com/guide/topics/connectivity/bluetooth-le}
+    
+    \item Apple Inc. (n.d.). \textit{Core Bluetooth Overview}. Recuperado de: \url{https://developer.apple.com/documentation/corebluetooth}
+    
+    \item Hart, P. E., Nilsson, N. J., \& Raphael, B. (1968). \textit{A formal basis for the heuristic determination of minimum cost paths}. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100–107. \url{https://doi.org/10.1109/TSSC.1968.300136}
+    
+    \item Thrun, S., Burgard, W., \& Fox, D. (2005). \textit{Probabilistic Robotics}. MIT Press.
+    
+    \item Welch, G., \& Bishop, G. (1995). \textit{An Introduction to the Kalman Filter}. University of North Carolina at Chapel Hill. \url{https://www.cs.unc.edu/~welch/media/pdf/kalman_intro.pdf}
+    
+    \item Ho, K. C., \& Xu, Y. T. (2004). \textit{An accurate algebraic solution for moving source location using TDOA and FDOA measurements}. IEEE Transactions on Signal Processing, 52(9), 2453-2463. \url{https://doi.org/10.1109/TSP.2004.832009}
+    
+    \item GitHub. (n.d.). \textit{Unity Plugin Development for iOS and Android}. Ejemplos de integración. Recuperado de: \url{https://github.com/Unity-Technologies/UnityNativePlugin}
 \end{itemize}
 
 \end{document}
