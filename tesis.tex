@@ -31,10 +31,10 @@
     \includegraphics[width=0.2\textwidth]{images/Uvg_logo.jpg}
 
     \vspace{15mm} 
-    {\Large Desarrollo de algoritmo de Pathfinding en Aplicación de recorridos virtuales con realidad aumentada para el Centro de Innovación y Tecnología de la Universidad del Valle de Guatemala.}
+    {\Large Desarrollo de sistema de posicionamiento preciso en interiores mediante sensores UWB para recorridos virtuales con realidad aumentada en la Universidad del Valle de Guatemala.}
 
     \vspace{10mm} 
-    {\Large Trabajo de graduación en modalidad de Megaproyecto presentado por Gustavo González
+    {\Large Trabajo de graduación en modalidad de Trabajo Profesional presentado por Gustavo González
     para optar al grado academico de Licenciatura en Ingeniería en Ciencias de la Computación y Tecnologías de la Información.}
 
     {\Large Guatemala, \\ 2025}
@@ -61,11 +61,11 @@
         \includegraphics[width=0.2\textwidth]{images/Uvg_logo.jpg}
     
         \vspace{15mm} 
-        {\Large Desarrollo de algoritmo de Pathfinding en Aplicación de recorridos virtuales con realidad aumentada para el Centro de Innovación y Tecnología de la Universidad del Valle de Guatemala.}
+        {\Large  Desarrollo de sistema de posicionamiento preciso en interiores mediante sensores UWB para recorridos virtuales con realidad aumentada en la Universidad del Valle de Guatemala}
     
         \vspace{10mm} 
-        {\Large Trabajo de graduación en modalidad de Megaproyecto presentado por Gustavo González
-        para optar al grado academico de Licenciatura en Ingeniería en Ciencias de la Computación y Tecnologías de la Información.}
+        {\Large Trabajo de graduación en modalidad de Trabajo Profesional presentado por Gustavo González
+    para optar al grado academico de Licenciatura en Ingeniería en Ciencias de la Computación y Tecnologías de la Información.}
     
         {\Large Guatemala, \\ 2025}
         
@@ -117,17 +117,25 @@ funcional que aproveche las capacidades de la realidad aumentada y la localizaci
 
 \section{Objetivos}
 \subsection{Objetivo general}
-{\justify Desarrollar e implementar un sistema de localización y navegación basado en realidad aumentada para la Universidad 
-del Valle de Guatemala, utilizando sensores Estimote Beacons con tecnología UWB y mejorando el algoritmo de pathfinding para 
-optimizar la experiencia del usuario.}
+{\justify Desarrollar e implementar un plugin de localización en tiempo real mediante sensores Estimote con tecnología Ultra-Wideband (UWB), integrado a Unity, como parte de una aplicación de realidad aumentada que facilite los recorridos virtuales dentro del Centro de Innovación y Tecnología (CIT) del campus de la Universidad del Valle de Guatemala.}
 
 \subsection{Objetivos específicos}
 \begin{enumerate}[label=\thesubsection.\arabic*]
-    \item Realizar el mapeo de la universidad para determinar la ubicación óptima de los sensores Estimote Beacons con tecnología UWB.
-    \item Configurar e integrar los sensores Estimote Beacons en la aplicación de realidad aumentada para mejorar la precisión de la 
-    localización dentro del campus.
-    \item Optimizar el algoritmo de pathfinding para generar rutas accesibles y mejorar la experiencia del usuario al navegar por la 
-    universidad.
+    \item Diseñar e implementar un algoritmo de trilateración
+para estimar la posición bidimensional del usuario dentro del campus universitario,
+mediante el procesamiento de las distancias medidas hacia múltiples sensores Estimote UWB distribuidos en el entorno.
+    \item Integrar el SDK nativo de Estimote para iOS con Unity
+para permitir la obtención y transferencia en tiempo real de datos de localización hacia la aplicación de realidad aumentada,
+mediante el desarrollo de un plugin nativo en Swift que sirva de puente entre ambas plataformas.
+    \item Aplicar técnicas de filtrado de señales, como el filtro de Kalman
+para mejorar la estabilidad del sistema de localización y reducir el efecto de ruido o jitter en las mediciones,
+mediante la combinación de los datos obtenidos por trilateración y los registros del acelerómetro del dispositivo.
+    \item Documentar exhaustivamente el desarrollo del sistema de localización
+para asegurar su mantenibilidad, facilitar su futura extensión a dispositivos Android y permitir su continuidad por generaciones futuras,
+mediante la elaboración de documentación técnica clara sobre la arquitectura del plugin, las decisiones de diseño y los procesos de integración.
+    \item Evaluar cualitativamente la precisión y suavidad del sistema de localización
+para validar su funcionamiento en condiciones reales y su aporte a la experiencia de usuario dentro de la aplicación,
+mediante la observación directa del comportamiento del sistema y el análisis de las distribuciones de datos de posición obtenidas durante pruebas manuales.       
 \end{enumerate}
 
 \newpage
@@ -145,69 +153,42 @@ Finalmente, este proyecto aporta a la universidad al fortalecer su imagen como i
 
 \newpage
 \section{Marco Teórico}
-\subsection{Estimote Beacons y tecnologías de posicionamiento}
-\begin{enumerate}[label=\thesubsection.\arabic*]
-\item  Estimote UWB y BLE  
+\subsection{Localización en interiores}
+{\justify La localización en interiores, también conocida como Indoor Positioning, es un área de estudio dentro de la computación ubicua que busca determinar la posición de personas u objetos dentro de espacios cerrados, donde las señales satelitales como el GPS pierden cobertura o presentan alta inexactitud. A diferencia de los sistemas de localización en exteriores, la implementación de soluciones en interiores implica múltiples retos técnicos, como la interferencia de estructuras físicas (paredes, techos, mobiliario), el comportamiento impredecible de las señales de radiofrecuencia por efectos como la reflexión, refracción y difracción, así como la variabilidad en el entorno.
 
-Estimote Beacons utilizan dos tecnologías clave: Bluetooth Low Energy (BLE) y Ultra Wide Band (UWB). Aunque UWB ofrece mayor precisión en la medición de distancia (alrededor de 10-30 cm), su mayor limitación es que solo permite una conexión simultánea entre un beacon y un dispositivo.
-Por otro lado, BLE permite múltiples conexiones simultáneas, lo cual lo hace más adecuado para un sistema con múltiples usuarios. Según la documentación oficial de Estimote, los Estimote Proximity Beacons pueden gestionar múltiples conexiones BLE, permitiendo que varios dispositivos escaneen simultáneamente la señal del mismo beacon.
-
-En este proyecto se priorizará BLE sobre UWB, ya que se busca soportar múltiples usuarios conectados al mismo tiempo a los sensores instalados en el campus.
-
-\item Triangulación / Trilateración
-
-El posicionamiento mediante beacons BLE se basa generalmente en trilateración, que utiliza la intensidad de la señal (RSSI) desde tres o más puntos conocidos para estimar la posición del dispositivo.
-Este método no requiere que el usuario esté exactamente dentro del triángulo formado por los sensores, pero su precisión puede verse afectada por la interferencia, los obstáculos físicos y la calidad del modelo de atenuación de la señal.
-
-Además, se pueden considerar enfoques híbridos con técnicas de suavizado, como el filtro de Kalman, para estabilizar las posiciones estimadas, especialmente considerando que el dispositivo se conectará y desconectará dinámicamente a medida que se mueva por el campus.
-\end{enumerate}
+Para suplir estas limitaciones, se han explorado diferentes tecnologías de localización alternativas, entre ellas Wi-Fi, Bluetooth Low Energy (BLE), RFID, visión por computadora y Ultra-Wideband (UWB). Cada tecnología ofrece un compromiso distinto entre precisión, consumo energético, costo y complejidad de implementación. En entornos que requieren alta precisión —como hospitales, bodegas o, en este caso, instalaciones universitarias complejas—, el UWB se destaca por ofrecer ventajas clave frente a sus competidores, sobre todo en términos de exactitud, latencia y robustez frente al ruido ambiental.}
 
 
-\subsection{Algoritmos de pathfinding}
-\begin{enumerate}[label=\thesubsection.\arabic*]
-    \item Algoritmo A*  
-        
-    A* es un algoritmo de búsqueda de caminos que encuentra la ruta más corta entre dos puntos usando heurísticas. Es ideal para mapas representados como grafos o grids, y puede adaptarse para funcionar de forma eficiente en entornos donde se necesita recalcular la ruta constantemente, como cuando el usuario cambia su trayectoria.
+\subsection{Tecnología Ultra-Wideband (UWB)}
+{\justify La tecnología Ultra-Wideband (UWB) se basa en el uso de pulsos de muy corta duración que se propagan en un espectro extremadamente amplio (mayor a 500 MHz). Esta característica permite transmitir datos con alta precisión temporal, lo que a su vez facilita la medición del tiempo exacto que tarda una señal en desplazarse entre dos dispositivos. A través de estos tiempos de vuelo (Time of Flight, ToF), un receptor puede estimar con mucha precisión la distancia a un emisor, sin depender de la intensidad de la señal (RSSI), como ocurre en tecnologías menos precisas como BLE o Wi-Fi.
 
-    Su complejidad es O(E), donde E representa el número de aristas exploradas. La eficiencia depende de la heurística utilizada, comúnmente la distancia Euclidiana o Manhattan.
-
-    \item Alternativas ligeras
-    
-    Si se requiere una solución más simple o rápida, se podrían usar variantes como:
-	
-    \begin{itemize}
-        \item Dijkstra, que garantiza el camino más corto pero sin heurísticas.
-        \item Greedy Best-First Search, que solo usa heurística pero puede no encontrar la mejor ruta.
-        \item Jump Point Search, en caso se use un grid uniforme, para acelerar A*.
-    \end{itemize}
-
-    En todos los casos, es importante que el algoritmo pueda adaptarse a cambios dinámicos, dado que el usuario puede desviarse y se requerirá una recalculación de la ruta en tiempo real.
-\end{enumerate}
+En aplicaciones de localización, los dispositivos UWB se colocan en el entorno como anclas o beacons, que transmiten pulsos periódicamente. Un dispositivo móvil equipado con un receptor UWB puede calcular su distancia a múltiples beacons y usar dicha información para estimar su posición. Esta técnica, que combina alta precisión (en el orden de decímetros o incluso centímetros) con baja latencia, es ideal para aplicaciones donde se requiere posicionamiento en tiempo real con gran fidelidad espacial, como la navegación asistida con realidad aumentada. En este proyecto se utilizan sensores Estimote UWB Beacons, diseñados específicamente para tareas de localización en interiores, con soporte en plataformas móviles como iOS.}
 
 
-\subsection{Desarrollo con Unity y AR Foundation}
-\begin{enumerate}[label=\thesubsection.\arabic*]
-    \item Unity como motor de desarrollo
-    
-    Unity es una plataforma de desarrollo en tiempo real que permite crear experiencias interactivas 3D y 2D. Para este proyecto se usará con enfoque en realidad aumentada.
+\subsection{Trilateración}
+{\justify La trilateración es un método geométrico fundamental en sistemas de localización que permite calcular la posición de un punto desconocido en el espacio utilizando las distancias conocidas a tres o más puntos de referencia cuyas ubicaciones son fijas. En el caso de localización en dos dimensiones, si se conocen las coordenadas de tres sensores (beacons) y las distancias del dispositivo móvil a cada uno de ellos, es posible determinar su posición mediante la intersección de los tres círculos generados por esas distancias. En la práctica, debido a errores de medición, estas circunferencias rara vez se intersectan en un solo punto, por lo que se recurre a métodos de optimización y regresión para encontrar el punto más probable.
 
-    \item AR Foundation
-    
-    AR Foundation es un framework de Unity que permite desarrollar aplicaciones de realidad aumentada multiplataforma, utilizando las capacidades de ARKit (iOS) y ARCore (Android). Proporciona abstracciones para detectar planos, posicionamiento espacial, anclajes, y renderizado de objetos 3D.
+Cuando se disponen más de tres sensores, se puede aplicar trilateración redundante, técnica que permite mejorar la estabilidad de la estimación al reducir el impacto de errores individuales en las mediciones. La trilateración es la base matemática de muchos sistemas de localización, incluidos GPS, y en este proyecto, se adapta al contexto del campus universitario, utilizando coordenadas cartesianas en un plano 2D para determinar la ubicación del usuario en tiempo real.}
 
-    Este framework permite superponer información sobre el entorno físico detectado por la cámara del dispositivo móvil, lo cual es esencial para presentar visualmente el camino a seguir dentro del tour guiado.
+\subsection{ Filtro de Kalman}
+{\justify El filtro de Kalman es un algoritmo recursivo de estimación desarrollado por Rudolf E. Kálmán en la década de 1960, utilizado para predecir el estado de un sistema dinámico y corregir esa predicción a partir de mediciones ruidosas. Su aplicación ha sido clave en campos como la navegación inercial, la robótica, el seguimiento de objetos y los sistemas de control, debido a su capacidad para integrar múltiples fuentes de información en presencia de incertidumbre.
 
-\end{enumerate}
+En el contexto de este proyecto, el filtro de Kalman se emplea para suavizar la trayectoria estimada del usuario dentro del campus, combinando las posiciones calculadas mediante trilateración con los datos del acelerómetro del dispositivo móvil. Esta fusión sensorial permite reducir el jitter, es decir, las pequeñas oscilaciones aleatorias en la posición del usuario, y mejorar la estabilidad de la trayectoria percibida. Aunque el sistema no busca una precisión milimétrica absoluta, el objetivo es proporcionar una experiencia de navegación fluida, donde la posición calculada varíe de forma coherente con el movimiento del usuario.}
 
-\subsection{Comunicación BLE y escaneo desde el dispositivo}
-\begin{enumerate}[label=\thesubsection.\arabic*]
-    \item BLE Scanning en dispositivos móviles
-    
-    Los dispositivos móviles modernos permiten escanear beacons BLE en segundo plano, obteniendo información como el UUID, el RSSI y el major/minor del beacon.
-    En Android, esto puede hacerse utilizando la API BluetoothLeScanner, y en iOS mediante CoreBluetooth.
+\subsection{Acelerómetro}
+{\justify El acelerómetro es un sensor electrónico capaz de medir la aceleración de un cuerpo en los tres ejes del espacio (x, y, z), tanto por efecto del movimiento como por la fuerza gravitacional. En los dispositivos móviles modernos, los acelerómetros permiten funciones como la detección de orientación, el conteo de pasos, y la navegación sin GPS (dead reckoning).
 
-    El sistema propuesto requiere una conexión robusta y simultánea a varios beacons para poder realizar estimaciones de posición, por lo que el escaneo debe ser eficiente y tolerante a desconexiones momentáneas.
-\end{enumerate}
+En este proyecto, el acelerómetro se utiliza como complemento a la trilateración UWB para mejorar la estimación de la posición del usuario. Aunque los acelerómetros presentan el inconveniente de la deriva acumulativa (pequeños errores que se amplifican con el tiempo cuando se integra la aceleración), su uso combinado con los datos de distancia de los sensores UWB, mediante el filtro de Kalman, permite detectar transiciones suaves en el movimiento del usuario, anticipar su dirección y estabilizar la trayectoria. De esta manera, el sistema puede ofrecer una experiencia más coherente y natural en la navegación con realidad aumentada.}
+
+\subsection{Unity y Realidad Aumentada}
+{\justify Unity es un motor de desarrollo multiplataforma ampliamente utilizado en la industria de los videojuegos, simulaciones y aplicaciones interactivas. Su compatibilidad con dispositivos móviles y su integración con librerías de realidad aumentada como ARKit (iOS) y ARCore (Android), lo convierten en una herramienta poderosa para el desarrollo de experiencias inmersivas en tiempo real.
+
+En este proyecto, Unity se emplea como el entorno de ejecución principal para la aplicación de recorridos virtuales con realidad aumentada. A través de la cámara del dispositivo móvil, el usuario puede observar su entorno mientras el sistema le sobreimpone elementos gráficos —como flechas tridimensionales— que le indican hacia dónde debe avanzar para completar un recorrido. La interacción entre estos elementos visuales y el sistema de localización precisa permite convertir el espacio físico del campus en una experiencia guiada interactiva, intuitiva y accesible.}
+
+\subsection{Plugins Nativos para Unity (iOS)}
+{\justify Debido a que Unity no ofrece acceso directo a todas las funcionalidades del sistema operativo, como sensores especializados o bibliotecas nativas, es común extender su funcionalidad mediante plugins nativos. Un plugin nativo permite conectar el código de Unity con código escrito en lenguajes como Swift (para iOS) o Kotlin (para Android), habilitando el uso de SDKs que solo están disponibles de forma nativa.
+
+En el caso de este proyecto, se desarrolla un plugin en Swift que se encarga de establecer la comunicación con los sensores Estimote UWB, procesar las mediciones de distancia, acceder a los datos del acelerómetro mediante el framework CoreMotion, realizar los cálculos de trilateración y aplicar el filtro de Kalman. Este plugin se comunica con Unity a través de una interfaz de funciones expuestas, enviando las coordenadas calculadas para ser usadas por el motor gráfico en la navegación. Esta arquitectura modular garantiza que el sistema pueda mantenerse y extenderse fácilmente, incluyendo la posibilidad futura de implementar un plugin análogo para Android.}
 
 
 \section{Metodología}
