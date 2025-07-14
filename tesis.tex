@@ -24,8 +24,7 @@
 \begin{doublespace}
     \thispagestyle{empty}  % no numbering for the cover
     \Large{UNIVERSIDAD DEL VALLE DE GUATEMALA}\\
-    Facultad de Ingeniería \\
-    Ingeniería en Ciencias de la Computación y Tecnologías de la Información 
+    Facultad de Ingeniería \\    
 
     % Image placement
     \vspace{15mm} 
@@ -35,10 +34,9 @@
     {\Large Desarrollo de sistema de posicionamiento preciso en interiores mediante sensores UWB para recorridos virtuales con realidad aumentada en la Universidad del Valle de Guatemala.}
 
     \vspace{10mm} 
-    {\Large Trabajo de graduación en modalidad de Trabajo Profesional presentado por Gustavo González
-    para optar al grado academico de Licenciatura en Ingeniería en Ciencias de la Computación y Tecnologías de la Información.}
+    {\Large Protocolo de Trabajo de graduación en modalidad de Trabajo Profesional presentado por Gustavo Andres González Pineda para optar al grado académico de Licenciado en Ingeniería en Ciencias de la Computación y Tecnologías de la Información.}
 
-    {\Large Guatemala, \\ 2025}
+    {\Large Guatemala,  2025}
     
 \end{doublespace}
 \end{center}
@@ -51,27 +49,25 @@
 
 
 \begin{center}
-    \begin{doublespace}
-        \thispagestyle{empty}  % no numbering for the cover
-        \Large{UNIVERSIDAD DEL VALLE DE GUATEMALA}\\
-        Facultad de Ingeniería \\
-        Ingeniería en Ciencias de la Computación y Tecnologías de la Información 
+\begin{doublespace}
+    \thispagestyle{empty}  % no numbering for the cover
+    \Large{UNIVERSIDAD DEL VALLE DE GUATEMALA}\\
+    Facultad de Ingeniería \\    
+
+    % Image placement
+    \vspace{15mm} 
+    \includegraphics[width=0.2\textwidth]{images/Uvg_logo.jpg}
+
+    \vspace{15mm} 
+    {\Large Desarrollo de sistema de posicionamiento preciso en interiores mediante sensores UWB para recorridos virtuales con realidad aumentada en la Universidad del Valle de Guatemala.}
+
+    \vspace{10mm} 
+    {\Large Protocolo de Trabajo de graduación en modalidad de Trabajo Profesional presentado por Gustavo Andres González Pineda para optar al grado académico de Licenciado en Ingeniería en Ciencias de la Computación y Tecnologías de la Información.}
+
+    {\Large Guatemala,  2025}
     
-        % Image placement
-        \vspace{15mm} 
-        \includegraphics[width=0.2\textwidth]{images/Uvg_logo.jpg}
-    
-        \vspace{15mm} 
-        {\Large  Desarrollo de sistema de posicionamiento preciso en interiores mediante sensores UWB para recorridos virtuales con realidad aumentada en la Universidad del Valle de Guatemala}
-    
-        \vspace{10mm} 
-        {\Large Trabajo de graduación en modalidad de Trabajo Profesional presentado por Gustavo González
-    para optar al grado academico de Licenciatura en Ingeniería en Ciencias de la Computación y Tecnologías de la Información.}
-    
-        {\Large Guatemala, \\ 2025}
-        
-    \end{doublespace}
-    \end{center}
+\end{doublespace}
+\end{center}
 % end of cover section
 
 % begin table of contents
@@ -87,6 +83,7 @@
 Unlike previous solutions that relied on QR codes or sensor fusion techniques subject to cumulative errors, this proposal employs Kalman filter-assisted trilateration to more reliably estimate the user's position in 2D coordinates. The system will be able to transmit this data to Unity, where it will be used to render augmented reality elements that guide the user around the campus.
 
 The project is part of a larger ongoing initiative and focuses on the technical implementation of the positioning module, laying the groundwork for future cross-platform extensions. This technological solution significantly contributes to improving the on-campus wayfinding experience and represents an example of the practical use of emerging technologies in localization, signal filtering, and interactive mobile application development.}
+\newpage
 
 \section{Resumen}
 {\justify
@@ -96,8 +93,8 @@ A diferencia de soluciones anteriores que dependían de códigos QR o técnicas 
 
 El proyecto forma parte de una iniciativa mayor en curso y se enfoca en la implementación técnica del módulo de posicionamiento, sentando las bases para futuras extensiones multiplataforma. Esta solución tecnológica contribuye significativamente a mejorar la experiencia de orientación dentro del campus y representa un ejemplo del uso práctico de tecnologías emergentes en localización, filtrado de señales y desarrollo de aplicaciones móviles interactivas.
 }
-
 \newpage
+
 
 \section{Introducción}
 {\justify
@@ -136,11 +133,11 @@ mediante el procesamiento de las distancias medidas hacia múltiples sensores Es
     \item Integrar el SDK nativo de Estimote para iOS con Unity
 para permitir la obtención y transferencia en tiempo real de datos de localización hacia la aplicación de realidad aumentada,
 mediante el desarrollo de un plugin nativo en Swift que sirva de puente entre ambas plataformas.
-    \item Aplicar técnicas de filtrado de señales, como el filtro de Kalman
+    \item Aplicar técnicas de filtrado de señales
 para mejorar la estabilidad del sistema de localización y reducir el efecto de ruido o jitter en las mediciones,
 mediante la combinación de los datos obtenidos por trilateración y los registros del acelerómetro del dispositivo.
-    \item Documentar exhaustivamente el desarrollo del sistema de localización
-para asegurar su mantenibilidad, facilitar su futura extensión a dispositivos Android y permitir su continuidad por generaciones futuras,
+    \item Documentar el desarrollo del sistema de localización
+para asegurar su mantenibilidad, facilitar su futura extensión a dispositivos Android y permitir su continuidad,
 mediante la elaboración de documentación técnica clara sobre la arquitectura del plugin, las decisiones de diseño y los procesos de integración.
     \item Evaluar cualitativamente la precisión y suavidad del sistema de localización
 para validar su funcionamiento en condiciones reales y su aporte a la experiencia de usuario dentro de la aplicación,
@@ -148,6 +145,7 @@ mediante la observación directa del comportamiento del sistema y el análisis d
 \end{enumerate}
 
 \newpage
+
 \section{Justificación}
 {\justify
 Actualmente, el proceso de orientación para estudiantes nuevos, visitantes y padres de familia dentro del campus universitario de la Universidad del Valle de Guatemala presenta diversas limitaciones. Tradicionalmente, el recorrido por las instalaciones es guiado por estudiantes o personal universitario, pero este se realiza una única vez —si es que se llega a realizar— lo cual suele ser insuficiente para que los usuarios recuerden rutas, espacios o servicios disponibles. Como consecuencia, durante los primeros semestres, muchos estudiantes enfrentan dificultades para ubicarse, llegando a perderse o desaprovechar recursos valiosos del campus.
@@ -198,7 +196,7 @@ En este proyecto, Unity se emplea como el entorno de ejecución principal para l
 {\justify Debido a que Unity no ofrece acceso directo a todas las funcionalidades del sistema operativo, como sensores especializados o bibliotecas nativas, es común extender su funcionalidad mediante plugins nativos. Un plugin nativo permite conectar el código de Unity con código escrito en lenguajes como Swift (para iOS) o Kotlin (para Android), habilitando el uso de SDKs que solo están disponibles de forma nativa.
 
 En el caso de este proyecto, se desarrolla un plugin en Swift que se encarga de establecer la comunicación con los sensores Estimote UWB, procesar las mediciones de distancia, acceder a los datos del acelerómetro mediante el framework CoreMotion, realizar los cálculos de trilateración y aplicar el filtro de Kalman. Este plugin se comunica con Unity a través de una interfaz de funciones expuestas, enviando las coordenadas calculadas para ser usadas por el motor gráfico en la navegación. Esta arquitectura modular garantiza que el sistema pueda mantenerse y extenderse fácilmente, incluyendo la posibilidad futura de implementar un plugin análogo para Android.}
-
+\newpage
 
 \section{Metodología}
 \subsection{Introducción}
@@ -226,7 +224,7 @@ La investigación es de tipo \textbf{experimental aplicada}, ya que se basa en l
     Se realizarán pruebas en campo para verificar la estabilidad del algoritmo, observando la coherencia espacial de las posiciones calculadas frente al movimiento del usuario.
 \end{itemize}
 
-\textit{Herramientas y conocimientos aplicados:} geometría analítica, programación orientada a objetos, desarrollo en Swift, teoría de localización.
+\subsubsection{Herramientas y conocimientos aplicados:} Para el desarrollo de este objetivo se aplican {\justify conocimientos de geometría analítica para modelar matemáticamente la trilateración en dos dimensiones, utilizando coordenadas cartesianas. Asimismo, se emplea programación orientada a objetos en el lenguaje Swift para implementar el algoritmo dentro de un entorno nativo para iOS. Se recurre también a principios básicos de teoría de localización y análisis espacial para interpretar las relaciones entre sensores y usuario, y garantizar que los cálculos de posición tengan coherencia estructural en un espacio real.}
 
 \subsubsection{Objetivo 2: Integrar el SDK nativo de Estimote con Unity mediante un plugin de comunicación en tiempo real}
 
@@ -241,7 +239,8 @@ La investigación es de tipo \textbf{experimental aplicada}, ya que se basa en l
     Se probará la integración verificando la correcta recepción y actualización de coordenadas dentro de Unity, así como el rendimiento del sistema en condiciones reales de uso.
 \end{itemize}
 
-\textit{Herramientas y conocimientos aplicados:} desarrollo iOS, SDK Estimote UWB, integración de plugins nativos, interoperabilidad entre plataformas.
+\subsubsection{Herramientas y conocimientos aplicados:} 
+{\justify Este objetivo requiere la aplicación de conocimientos en desarrollo móvil nativo, específicamente para iOS, a través del uso de Swift y del SDK oficial de Estimote para sensores UWB. Además, se requiere dominio de la integración de plugins nativos en Unity, lo cual implica comprender los mecanismos de interoperabilidad entre plataformas, la comunicación entre código nativo y el motor gráfico, y el paso eficiente de datos en tiempo real. También se aplican conceptos de diseño modular y arquitectura de software para estructurar el plugin de forma mantenible.}
 
 \subsubsection{Objetivo 3: Aplicar filtrado con técnicas como el filtro de Kalman para reducir el jitter}
 
@@ -256,9 +255,10 @@ La investigación es de tipo \textbf{experimental aplicada}, ya que se basa en l
     Se evaluará la efectividad del filtrado mediante visualización de trayectorias y análisis del ruido residual en las posiciones. Se priorizará la precisión (consistencia) sobre la exactitud absoluta.
 \end{itemize}
 
-\textit{Herramientas y conocimientos aplicados:} estadística aplicada, procesamiento de señales, sensores inerciales, programación de filtros.
+\subsubsection{Herramientas y conocimientos aplicados:} 
+{\justify En este punto del proyecto se aplican fundamentos de estadística aplicada y procesamiento de señales para implementar técnicas de filtrado, con énfasis en el filtro de Kalman. También se integran conceptos relacionados con sensores inerciales como el acelerómetro y giroscopio, usando librerías como CoreMotion en iOS para complementar los datos de posición. Finalmente, se requiere la capacidad de programar estructuras de filtrado en tiempo real y analizar la relación entre precisión, estabilidad y ruido de la señal.}
 
-\subsubsection{Objetivo 4: Documentar exhaustivamente el desarrollo del plugin y su integración}
+\subsubsection{Objetivo 4: Documentar el desarrollo del plugin y su integración}
 
 \begin{itemize}
     \item \textbf{Fase 1: Estructuración del código y módulos} \\
@@ -271,7 +271,8 @@ La investigación es de tipo \textbf{experimental aplicada}, ya que se basa en l
     Toda la documentación será entregada junto al proyecto final y se dispondrá para futuras generaciones con el fin de facilitar la continuidad del megaproyecto.
 \end{itemize}
 
-\textit{Herramientas y conocimientos aplicados:} buenas prácticas de desarrollo, ingeniería de software, documentación técnica, diseño sostenible.
+\subsubsection{Herramientas y conocimientos aplicados:} 
+{\justify Para este objetivo se aplican buenas prácticas de desarrollo de software, como la escritura de código modular, comentado y con convenciones claras de nomenclatura. También se emplean técnicas de documentación técnica para describir el funcionamiento de cada módulo, la estructura del sistema, los flujos de datos y los pasos necesarios para su mantenimiento o extensión. Todo esto se enmarca dentro de un enfoque de diseño sostenible, que busca facilitar la transferencia del conocimiento a futuros desarrolladores del megaproyecto.}
 
 \subsubsection{Objetivo 5: Evaluar cualitativamente la precisión y suavidad del sistema de localización}
 
@@ -286,7 +287,8 @@ La investigación es de tipo \textbf{experimental aplicada}, ya que se basa en l
     En caso de detectar irregularidades, se realizarán ajustes al algoritmo de trilateración o al filtro de Kalman hasta alcanzar una experiencia fluida.
 \end{itemize}
 
-\textit{Herramientas y conocimientos aplicados:} análisis de datos, visualización de trayectorias, pruebas empíricas, ajuste de parámetros.
+\subsubsection{Herramientas y conocimientos aplicados:} 
+{\justify En esta etapa se aplican conocimientos de análisis de datos para interpretar trayectorias, identificar patrones de jitter y evaluar la continuidad del movimiento estimado por el sistema. Se utilizan herramientas de visualización para representar el comportamiento del sistema bajo diferentes condiciones de uso. También se recurre a métodos de prueba empírica y ajuste de parámetros para afinar el sistema con base en los resultados observados, priorizando una experiencia fluida por encima de una exactitud matemática absoluta.}
 
 \subsection{Recolección de datos}
 
@@ -324,7 +326,66 @@ Este proyecto no involucra usuarios reales en esta etapa, ni recopila informaci�
 \end{itemize}
 
 Actualmente, todos los datos son técnicos y recopilados internamente por los desarrolladores en contextos controlados.
+\newpage
 
+\section{Índice Preliminar}
+
+
+\begin{itemize}
+  \item 1. Lista de cuadros y figuras
+  \item 2. Resumen
+  \item 3. Abstract
+  \item 4. Introducción
+  \item 5. Antecedentes del megaproyecto
+  \item 6. Justificación
+  \item 7. Objetivos
+  \begin{itemize}
+    \item 7.1 Objetivo general
+    \item 7.2 Objetivos específicos
+  \end{itemize}
+  \item 8. Marco Teórico
+  \begin{itemize}
+    \item 8.1 Tecnologías de localización en interiores
+    \begin{itemize}
+      \item 8.1.1 UWB vs BLE vs GPS
+      \item 8.1.2 Sensores Estimote y su integración en dispositivos móviles
+    \end{itemize}
+    \item 8.2 Algoritmos de localización
+    \begin{itemize}
+      \item 8.2.1 Trilateración en 2D
+      \item 8.2.2 Filtros de Kalman aplicados a la navegación
+    \end{itemize}
+    \item 8.3 Realidad aumentada con Unity
+    \begin{itemize}
+      \item 8.3.1 AR Foundation
+      \item 8.3.2 Desarrollo de plugins nativos para Unity (iOS/Android)
+      \item 8.3.3 Comunicación entre capas nativas y Unity
+    \end{itemize}
+  \end{itemize}
+  \item 9. Metodología
+  \begin{itemize}
+    \item 9.1 Tipo de investigación
+    \item 9.2 Metodología estructurada por objetivos
+    \begin{itemize}
+      \item 9.2.1 Objetivo específico 1: Algoritmo de trilateración
+      \item 9.2.2 Objetivo específico 2: Integración del SDK nativo
+      \item 9.2.3 Objetivo específico 3: Filtro de Kalman
+      \item 9.2.4 Objetivo específico 4: Documentación técnica
+      \item 9.2.5 Objetivo específico 5: Evaluación cualitativa del sistema
+    \end{itemize}
+    \item 9.3 Recolección de datos
+    \item 9.4 Análisis de datos
+    \item 9.5 Consideraciones éticas
+  \end{itemize}
+  \item 10. Cronograma
+  \item 11. Resultados esperados
+  \item 12. Discusión
+  \item 13. Conclusiones
+  \item 14. Recomendaciones
+  \item 15. Bibliografía
+  \item 16. Anexos
+  \item 17. Glosario
+\end{itemize}
 \newpage
 
 \section{Cronograma}
