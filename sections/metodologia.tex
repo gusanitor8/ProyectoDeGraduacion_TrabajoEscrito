@@ -1,0 +1,129 @@
+\section{Metodología}
+\subsection{Introducción}
+
+
+Para alcanzar los objetivos planteados en este proyecto, se ha diseñado una metodología de carácter \textbf{experimental}, centrada en la integración de sensores UWB, el desarrollo de plugins nativos para iOS y su comunicación con el motor gráfico Unity. El enfoque se basa en el diseño, implementación, prueba y ajuste de algoritmos y módulos de software dentro de un entorno controlado y real, específicamente el edificio del Centro de Innovación y Tecnología de la Universidad del Valle de Guatemala.
+
+\subsection{Tipo de investigación}
+
+La investigación es de tipo \textbf{experimental aplicada}, ya que se basa en la validación empírica de una solución tecnológica diseñada para resolver un problema específico del entorno universitario. A través de pruebas funcionales, análisis de datos y evaluación cualitativa, se busca comprobar la viabilidad y efectividad de un sistema de localización en tiempo real, integrable con una aplicación de realidad aumentada.
+
+\subsection{Metodología estructurada por objetivos}
+
+\subsubsection{Objetivo 1: Diseñar e implementar un algoritmo de trilateración para estimar la posición 2D del usuario}
+
+
+\begin{itemize}
+    \item \textbf{Fase 1: Diseño del algoritmo} \\
+    Se definirá un modelo matemático basado en trilateración 2D utilizando coordenadas cartesianas. El algoritmo tomará como entrada las distancias a múltiples sensores UWB y devolverá una estimación de posición en el plano.
+
+    \item \textbf{Fase 2: Desarrollo del algoritmo} \\
+    El algoritmo será implementado en Swift como parte del plugin nativo para iOS. Se probará inicialmente en entornos controlados utilizando distancias simuladas y luego con datos reales de los sensores Estimote.
+
+    \item \textbf{Fase 3: Validación funcional} \\
+    Se realizarán pruebas en campo para verificar la estabilidad del algoritmo, observando la coherencia espacial de las posiciones calculadas frente al movimiento del usuario.
+\end{itemize}
+
+\subsubsection{Herramientas y conocimientos aplicados:} Para el desarrollo de este objetivo se aplican {\justify conocimientos de geometría analítica para modelar matemáticamente la trilateración en dos dimensiones, utilizando coordenadas cartesianas. Asimismo, se emplea programación orientada a objetos en el lenguaje Swift para implementar el algoritmo dentro de un entorno nativo para iOS. Se recurre también a principios básicos de teoría de localización y análisis espacial para interpretar las relaciones entre sensores y usuario, y garantizar que los cálculos de posición tengan coherencia estructural en un espacio real.}
+
+\subsubsection{Objetivo 2: Integrar el SDK nativo de Estimote con Unity mediante un plugin de comunicación en tiempo real}
+
+\begin{itemize}
+    \item \textbf{Fase 1: Conexión con sensores UWB} \\
+    Se desarrollará un módulo nativo en Swift capaz de escanear, conectar y recibir datos de los sensores Estimote UWB, utilizando el SDK oficial proporcionado por el fabricante.
+
+    \item \textbf{Fase 2: Desarrollo del plugin para Unity} \\
+    Se diseñará un plugin nativo que actúe como puente entre el código Swift y el entorno Unity, permitiendo transmitir datos de posicionamiento en tiempo real.
+
+    \item \textbf{Fase 3: Validación de la comunicación} \\
+    Se probará la integración verificando la correcta recepción y actualización de coordenadas dentro de Unity, así como el rendimiento del sistema en condiciones reales de uso.
+\end{itemize}
+
+\subsubsection{Herramientas y conocimientos aplicados:} 
+{\justify Este objetivo requiere la aplicación de conocimientos en desarrollo móvil nativo, específicamente para iOS, a través del uso de Swift y del SDK oficial de Estimote para sensores UWB. Además, se requiere dominio de la integración de plugins nativos en Unity, lo cual implica comprender los mecanismos de interoperabilidad entre plataformas, la comunicación entre código nativo y el motor gráfico, y el paso eficiente de datos en tiempo real. También se aplican conceptos de diseño modular y arquitectura de software para estructurar el plugin de forma mantenible.}
+
+\subsubsection{Objetivo 3: Aplicar filtrado con técnicas como el filtro de Kalman para reducir el jitter}
+
+\begin{itemize}
+    \item \textbf{Fase 1: Recolección de datos crudos} \\
+    Se recopilarán datos en tiempo real de la trilateración y del acelerómetro del dispositivo móvil mediante CoreMotion.
+
+    \item \textbf{Fase 2: Implementación del filtro de Kalman} \\
+    Se desarrollará un módulo en Swift que aplique el filtro de Kalman a las posiciones estimadas, utilizando como entradas tanto las mediciones UWB como la aceleración registrada.
+
+    \item \textbf{Fase 3: Análisis de estabilidad} \\
+    Se evaluará la efectividad del filtrado mediante visualización de trayectorias y análisis del ruido residual en las posiciones. Se priorizará la precisión (consistencia) sobre la exactitud absoluta.
+\end{itemize}
+
+\subsubsection{Herramientas y conocimientos aplicados:} 
+{\justify En este punto del proyecto se aplican fundamentos de estadística aplicada y procesamiento de señales para implementar técnicas de filtrado, con énfasis en el filtro de Kalman. También se integran conceptos relacionados con sensores inerciales como el acelerómetro y giroscopio, usando librerías como CoreMotion en iOS para complementar los datos de posición. Finalmente, se requiere la capacidad de programar estructuras de filtrado en tiempo real y analizar la relación entre precisión, estabilidad y ruido de la señal.}
+
+\subsubsection{Objetivo 4: Documentar el desarrollo del plugin y su integración}
+
+\begin{itemize}
+    \item \textbf{Fase 1: Estructuración del código y módulos} \\
+    Se organizará el código del plugin de manera modular y reutilizable, con comentarios explicativos y convenciones de nomenclatura claras.
+
+    \item \textbf{Fase 2: Elaboración de documentación técnica} \\
+    Se redactará documentación detallada que describa la arquitectura del sistema, el funcionamiento interno del plugin, los flujos de datos y los pasos para su integración y reutilización.
+
+    \item \textbf{Fase 3: Publicación y entrega} \\
+    Toda la documentación será entregada junto al proyecto final y se dispondrá para futuras generaciones con el fin de facilitar la continuidad del megaproyecto.
+\end{itemize}
+
+\subsubsection{Herramientas y conocimientos aplicados:} 
+{\justify Para este objetivo se aplican buenas prácticas de desarrollo de software, como la escritura de código modular, comentado y con convenciones claras de nomenclatura. También se emplean técnicas de documentación técnica para describir el funcionamiento de cada módulo, la estructura del sistema, los flujos de datos y los pasos necesarios para su mantenimiento o extensión. Todo esto se enmarca dentro de un enfoque de diseño sostenible, que busca facilitar la transferencia del conocimiento a futuros desarrolladores del megaproyecto.}
+
+\subsubsection{Objetivo 5: Evaluar cualitativamente la precisión y suavidad del sistema de localización}
+
+\begin{itemize}
+    \item \textbf{Fase 1: Pruebas de campo} \\
+    Se ejecutarán pruebas en zonas específicas del edificio para observar el comportamiento del sistema en movimiento y en reposo.
+
+    \item \textbf{Fase 2: Recolección y análisis de datos} \\
+    Se analizarán trayectorias, jitter, y ruido en las posiciones generadas. Se observará la estabilidad visual del sistema para el usuario final.
+
+    \item \textbf{Fase 3: Ajustes iterativos} \\
+    En caso de detectar irregularidades, se realizarán ajustes al algoritmo de trilateración o al filtro de Kalman hasta alcanzar una experiencia fluida.
+\end{itemize}
+
+\subsubsection{Herramientas y conocimientos aplicados:} 
+{\justify En esta etapa se aplican conocimientos de análisis de datos para interpretar trayectorias, identificar patrones de jitter y evaluar la continuidad del movimiento estimado por el sistema. Se utilizan herramientas de visualización para representar el comportamiento del sistema bajo diferentes condiciones de uso. También se recurre a métodos de prueba empírica y ajuste de parámetros para afinar el sistema con base en los resultados observados, priorizando una experiencia fluida por encima de una exactitud matemática absoluta.}
+
+\subsection{Recolección de datos}
+
+Durante el desarrollo y validación del sistema se recopilarán los siguientes tipos de datos:
+
+\begin{itemize}
+    \item Distancias entre el dispositivo móvil y sensores UWB.
+    \item Coordenadas calculadas por el sistema de trilateración.
+    \item Aceleración y orientación medidas por el acelerómetro y giroscopio del dispositivo.
+    \item Registros de estabilidad (jitter) y continuidad de la trayectoria estimada.
+\end{itemize}
+
+Todas las pruebas se llevarán a cabo dentro del campus universitario en condiciones controladas, utilizando dispositivos iOS compatibles con UWB.
+
+\subsection{Análisis de datos}
+
+El análisis de datos se enfocará en:
+
+\begin{itemize}
+    \item Cuantificar la estabilidad de las posiciones calculadas en reposo y en movimiento.
+    \item Visualizar trayectorias para detectar ruido o errores de salto.
+    \item Comparar el comportamiento del sistema con y sin filtrado aplicado.
+\end{itemize}
+
+Se utilizarán herramientas de análisis visual y gráficos generados mediante scripts personalizados en Swift o Python, según se requiera.
+
+\subsection{Consideraciones éticas}
+
+Este proyecto no involucra usuarios reales en esta etapa, ni recopila información sensible. Sin embargo, se contemplan las siguientes buenas prácticas para futuras fases o generaciones:
+
+\begin{itemize}
+    \item Solicitar consentimiento informado si se realizan pruebas con participantes.
+    \item Garantizar el anonimato de los datos de localización recolectados.
+    \item Usar la información únicamente con fines académicos y de mejora del sistema.
+\end{itemize}
+
+Actualmente, todos los datos son técnicos y recopilados internamente por los desarrolladores en contextos controlados.
+\newpage

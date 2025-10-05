@@ -1,0 +1,24 @@
+\section{Objetivos}
+\subsection{Objetivo general}
+{\justify Desarrollar e implementar un plugin de localización en tiempo real mediante sensores Estimote con tecnología Ultra-Wideband (UWB), integrado a Unity, como parte de una aplicación de realidad aumentada que facilite los recorridos virtuales dentro del Centro de Innovación y Tecnología (CIT) del campus de la Universidad del Valle de Guatemala.}
+
+\subsection{Objetivos específicos}
+\begin{enumerate}[label=\thesubsection.\arabic*]
+    \item Diseñar e implementar un algoritmo de trilateración
+para estimar la posición bidimensional del usuario dentro del campus universitario,
+mediante el procesamiento de las distancias medidas hacia múltiples sensores Estimote UWB distribuidos en el entorno.
+    \item Integrar el SDK nativo de Estimote para iOS con Unity
+para permitir la obtención y transferencia en tiempo real de datos de localización hacia la aplicación de realidad aumentada,
+mediante el desarrollo de un plugin nativo en Swift que sirva de puente entre ambas plataformas.
+    \item Aplicar técnicas de filtrado de señales
+para mejorar la estabilidad del sistema de localización y reducir el efecto de ruido o jitter en las mediciones,
+mediante la combinación de los datos obtenidos por trilateración y los registros del acelerómetro del dispositivo.
+    \item Documentar el desarrollo del sistema de localización
+para asegurar su mantenibilidad, facilitar su futura extensión a dispositivos Android y permitir su continuidad,
+mediante la elaboración de documentación técnica clara sobre la arquitectura del plugin, las decisiones de diseño y los procesos de integración.
+    \item Evaluar cualitativamente la precisión y suavidad del sistema de localización
+para validar su funcionamiento en condiciones reales y su aporte a la experiencia de usuario dentro de la aplicación,
+mediante la observación directa del comportamiento del sistema y el análisis de las distribuciones de datos de posición obtenidas durante pruebas manuales.       
+\end{enumerate}
+
+\newpage
