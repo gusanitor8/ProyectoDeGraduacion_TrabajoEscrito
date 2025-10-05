@@ -129,7 +129,7 @@ Cuando el número de sensores $n$ es mayor a tres, el sistema se vuelve sobredet
 A^T A \mathbf{x} = A^T \mathbf{b}
 \]
 
-\paragraph{Derivación de la ecuación normal}
+\subsubsection*{Derivación de la ecuación normal}
 
 Sea el sistema $A\mathbf{x} = \mathbf{b}$ con $A \in \mathbb{R}^{m \times n}$ y $m > n$. Dado que el sistema es inconsistente, $\mathbf{b}$ no pertenece al espacio columna de $A$ ($\mathbf{b} \notin \text{col}(A)$). Sin embargo, existe un vector $\hat{\mathbf{x}}$ tal que $A\hat{\mathbf{x}}$ representa la proyección ortogonal de $\mathbf{b}$ sobre $\text{col}(A)$, minimizando el error cuadrático:
 
@@ -153,49 +153,47 @@ A^TA\hat{\mathbf{x}} = A^T\mathbf{b}
 
 Esta formulación corresponde al sistema de ecuaciones normales, cuya solución $\hat{\mathbf{x}}$ representa el punto que minimiza la suma de los errores al cuadrado entre las distancias medidas y las distancias modeladas. Geométricamente, esto equivale a proyectar el vector $\mathbf{b}$ sobre el subespacio generado por las columnas de $A$, como se muestra en la Figura~\ref{fig:projection}.
 
-\tdplotsetmaincoords{70}{110}
-\begin{tikzpicture}[tdplot_main_coords, scale=2]
+\begin{figure}[htbp]
+\centering
+    \tdplotsetmaincoords{70}{110}
+    \begin{tikzpicture}[tdplot_main_coords, scale=2]
 
-% Define the plane (column space)
-\filldraw[green!20, opacity=0.6] 
-    (0,0,0) -- (2,0,0) -- (2,2,0.5) -- (0,2,0.5) -- cycle;
+    % Define the plane (column space)
+    \filldraw[green!20, opacity=0.6] 
+        (0,0,0) -- (2,0,0) -- (2,2,0.5) -- (0,2,0.5) -- cycle;
 
-% Draw axes
-\draw[->, thick] (0,0,0) -- (2.5,0,0) node[below] {$x$};
-\draw[->, thick] (0,0,0) -- (0,2.5,0) node[right] {$y$};
-\draw[->, thick] (0,0,0) -- (0,0,2.5) node[above] {$z$};
+    % Draw axes
+    \draw[->, thick] (0,0,0) -- (2.5,0,0) node[below] {$x$};
+    \draw[->, thick] (0,0,0) -- (0,2.5,0) node[right] {$y$};
+    \draw[->, thick] (0,0,0) -- (0,0,2.5) node[above] {$z$};
 
-% Define points
-\coordinate (O) at (0,0,0);
-\coordinate (b) at (1.5,1.5,2);  % Original vector
-\coordinate (proj) at (1.5,1.5,0.375); % Projection onto plane
+    % Define points
+    \coordinate (O) at (0,0,0);
+    \coordinate (b) at (1.5,1.5,2);  % Original vector
+    \coordinate (proj) at (1.5,1.5,0.375); % Projection onto plane
 
-% Draw projection line (dashed)
-\draw[dashed, gray, thick] (b) -- (proj);
+    % Draw projection line (dashed)
+    \draw[dashed, gray, thick] (b) -- (proj);
 
-% Draw vectors
-\draw[->, very thick, red] (O) -- (b) node[above right] {$\mathbf{b}$};
-\draw[->, very thick, blue] (O) -- (proj) node[below left] {$\text{proj}_{\text{Col}(A)}\mathbf{b}$};
+    % Draw vectors
+    \draw[->, very thick, red] (O) -- (b) node[above right] {$\mathbf{b}$};
+    \draw[->, very thick, blue] (O) -- (proj) node[below left] {$\text{proj}_{\text{Col}(A)}\mathbf{b}$};
 
-% Draw error vector (perpendicular component)
-\draw[->, thick, orange] (proj) -- (b) node[midway, right] {$\mathbf{e}$};
+    % Draw error vector (perpendicular component)
+    \draw[->, thick, orange] (proj) -- (b) node[midway, right] {$\mathbf{e}$};
 
-% Label the plane - moved to back corner
-\node[green] at (0.3, 1.8, 0.4) {$\text{Col}(A)$};
+    % Label the plane - moved to back corner
+    \node[green] at (0.3, 1.8, 0.4) {$\text{Col}(A)$};
 
-% Optional: draw right angle indicator
-\draw[thick] (proj) -- ++(0.2,0,0) -- ++(0,0,0.2) -- ++(-0.2,0,0);
+    % Optional: draw right angle indicator
+    \draw[thick] (proj) -- ++(0.2,0,0) -- ++(0,0,0.2) -- ++(-0.2,0,0);
 
-\end{tikzpicture}
+    \end{tikzpicture}
+    \caption{Proyección del vector $\mathbf{b}$ sobre el espacio columna de $A$, base conceptual de las ecuaciones normales.}
+    \label{fig:projection}
+\end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.6\textwidth]{images/projection.png}
-%     \caption{Proyección del vector $\mathbf{b}$ sobre el espacio columna de $A$, base conceptual de las ecuaciones normales.}
-%     \label{fig:projection}
-% \end{figure}
-
-\paragraph{Implementación en Swift}
+\subsubsection*{mplementación en Swift}
 
 La multilateración se implementó mediante la función \texttt{multilateration()}, que construye las matrices del sistema y aplica las ecuaciones normales para resolver el vector de posición en tiempo real. El proceso se ejecuta en tres etapas:
 
