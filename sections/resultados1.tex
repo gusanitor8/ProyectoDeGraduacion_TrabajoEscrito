@@ -3,6 +3,7 @@
 
 Para el cálculo de la posición del usuario se implementó un algoritmo de trilateración en dos dimensiones (x,y), dado que el propósito principal de la aplicación de realidad aumentada es determinar la ubicación del usuario sobre un plano, sin necesidad de considerar su altura exacta en el eje z. En un escenario tridimensional, la trilateración requiere al menos cuatro sensores UWB para resolver la posición completa del usuario. Sin embargo, al limitar el problema al plano bidimensional, fue posible emplear únicamente tres sensores, con la condición de manejar adecuadamente el eje z para evitar que su omisión se tradujera en un error adicional sobre los ejes x e y.
 
+\subsubsection{Fase1: Diseño del algoritmo}
 \subsubsection*{Derivación matemática del modelo}
 
 El modelo parte de la ecuación de distancia entre el usuario $(x, y, z)$ y cada sensor $i$:
@@ -65,6 +66,7 @@ El sistema puede producir dos posibles soluciones para la coordenada $z$ cuando 
 
 Este procedimiento permitió compensar parcialmente el efecto de la elevación en las mediciones, evitando que el error en la componente vertical se propagara hacia las coordenadas de interés. Para reforzar esta estrategia, se colocaron todos los sensores a una misma altura, de manera que la coordenada $z$ asignada a cada beacon fuera arbitraria pero consistente en todo el sistema.
 
+\subsubsection{Fase 2: Desarrollo del algoritmo}
 \subsubsection*{Implementación del algoritmo en Swift}
 
 El algoritmo fue implementado en el lenguaje \texttt{Swift} como parte del plugin nativo de localización para iOS. La función principal, \texttt{do\_trilateration}, recibe como entrada un conjunto dinámico de sensores activos, y selecciona automáticamente las tres anclas más recientes basándose en su marca de tiempo (\textit{timestamp}). Esta estrategia de selección garantiza que las mediciones correspondan a señales coherentes temporalmente, evitando inconsistencias en el cálculo espacial.
@@ -193,7 +195,7 @@ Esta formulación corresponde al sistema de ecuaciones normales, cuya solución 
     \label{fig:projection}
 \end{figure}
 
-\subsubsection*{mplementación en Swift}
+\subsubsection*{Implementación de multilateración en Swift}
 
 La multilateración se implementó mediante la función \texttt{multilateration()}, que construye las matrices del sistema y aplica las ecuaciones normales para resolver el vector de posición en tiempo real. El proceso se ejecuta en tres etapas:
 
@@ -222,6 +224,7 @@ private func multilateration(anchors: [Anchor]) -> Vector2D {
 Esta formulación basada en ecuaciones normales proporciona una estimación más robusta de la posición, al reducir la sensibilidad del sistema frente a errores individuales en las mediciones de distancia. En las pruebas experimentales, la multilateración permitió estabilizar significativamente el cálculo de posición respecto al modelo de trilateración pura, generando trayectorias más suaves y coherentes con el movimiento real del usuario.
 
 
+\subsubsection{Fase 3: Validación funcional}
 \subsubsection*{Validación experimental y observaciones}
 
 Una vez implementado el algoritmo de trilateración en 2D, se realizaron pruebas controladas con tres sensores Estimote UWB para evaluar su funcionamiento. La primera prueba se llevó a cabo en un salón del campus universitario, con el objetivo de obtener una visualización inicial del posicionamiento calculado. En esta etapa se generó una animación (GIF) que mostraba en tiempo real la estimación de la ubicación del usuario.
