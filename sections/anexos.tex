@@ -1,0 +1,48 @@
+\section{Anexos}
+\subsection{Glosario}
+
+\begin{description}
+
+\item[UWB (Ultra-Wideband):] Tecnología de comunicación inalámbrica de corto alcance que utiliza pulsos de radio de amplio espectro para medir distancias con alta precisión. Es fundamental en sistemas de localización en interiores debido a su baja latencia y alta resolución temporal.
+
+\item[Trilateración:] Método geométrico que determina la posición de un punto desconocido mediante la intersección de tres circunferencias (en 2D) o esferas (en 3D), cada una centrada en un sensor con radio igual a la distancia medida hacia el punto objetivo.
+
+\item[Multilateración:] Extensión de la trilateración que emplea más de tres sensores para resolver un sistema sobredeterminado. Permite mejorar la precisión y robustez del cálculo de posición mediante técnicas de mínimos cuadrados.
+
+\item[Ecuación normal:] Expresión matricial $A^T A x = A^T b$ utilizada para resolver sistemas lineales sobredeterminados. En el contexto del proyecto, se aplica para estimar la posición del usuario cuando existen más mediciones que incógnitas.
+
+\item[Filtro de Kalman:] Algoritmo recursivo de estimación que combina mediciones ruidosas con un modelo dinámico del sistema para obtener una estimación óptima del estado. En esta investigación se utilizó para suavizar las posiciones estimadas por UWB y combinar los datos del acelerómetro.
+
+\item[Jitter:] Variación errática y de alta frecuencia en las mediciones de posición o señal. En este trabajo, el término se refiere a la inestabilidad observada en la trilateración antes de aplicar filtrado.
+
+\item[Fusión sensorial:] Técnica que combina múltiples fuentes de datos (por ejemplo, UWB y acelerómetro) para mejorar la precisión, estabilidad y confiabilidad de las estimaciones. Es la base del filtro de Kalman implementado.
+
+\item[Acelerómetro:] Sensor capaz de medir la aceleración del dispositivo en los tres ejes cartesianos. En este proyecto se utilizó como fuente auxiliar para detectar movimiento y estabilizar el cálculo de posición.
+
+\item[CoreMotion:] Framework de Apple que permite acceder a los datos de movimiento y orientación del dispositivo, incluyendo acelerómetro, giroscopio y magnetómetro.
+
+\item[SDK (Software Development Kit):] Conjunto de herramientas y bibliotecas que facilitan la integración de funcionalidades específicas en una aplicación. En este trabajo, se utilizó el SDK de Estimote para interactuar con los sensores UWB.
+
+\item[Plugin nativo:] Componente de software que permite integrar código escrito en un lenguaje nativo (como Swift u Objective-C) dentro de un motor multiplataforma como Unity, facilitando la comunicación entre ambas capas.
+
+\item[Unity:] Motor de desarrollo multiplataforma utilizado para crear aplicaciones 3D e interactivas. En esta investigación se empleó como entorno de visualización y renderizado del sistema de posicionamiento.
+
+\item[Swift:] Lenguaje de programación desarrollado por Apple para el desarrollo de aplicaciones en iOS. Fue utilizado para implementar el algoritmo de trilateración, multilateración y filtrado de Kalman.
+
+\item[Objective-C:] Lenguaje de programación compatible con Swift que se utiliza para exponer funciones del código nativo hacia otros entornos, como Unity, mediante una interfaz de comunicación C-friendly.
+
+\item[Delegate (patrón de diseño):] Patrón arquitectónico que permite delegar tareas específicas a diferentes objetos para reducir el acoplamiento entre módulos. En este proyecto se utilizó para separar la lógica de sensores UWB, acelerómetro y procesamiento de posición.
+
+\item[Realidad aumentada (RA):] Tecnología que superpone información digital sobre el entorno físico percibido a través de una cámara o visor. El sistema de posicionamiento desarrollado busca ser la base de una aplicación de RA para interiores.
+
+\item[Varianza:] Medida estadística de la dispersión de un conjunto de datos respecto a su media. En el contexto del proyecto, se utilizó para cuantificar el ruido presente en las mediciones UWB y del acelerómetro.
+
+\item[Modelo de estado:] Representación matemática del sistema dinámico que describe cómo evoluciona el estado (posición, velocidad, etc.) con el tiempo. Es un componente esencial en el funcionamiento del filtro de Kalman.
+
+\item[Ruido de medición:] Componente aleatorio no deseado presente en las observaciones de un sensor. Su reducción o compensación es uno de los objetivos principales del filtrado aplicado en el proyecto.
+
+\item[Sistema sobredeterminado:] Sistema de ecuaciones con más ecuaciones que incógnitas, común en problemas de estimación con redundancia de sensores. Se resuelve minimizando el error cuadrático medio mediante ecuaciones normales.
+
+\item[Hiperparámetros:] Parámetros configurables del filtro de Kalman (como las matrices de covarianza del proceso y de medición) que determinan su capacidad de adaptación al ruido y la dinámica del sistema.
+
+\end{description}
