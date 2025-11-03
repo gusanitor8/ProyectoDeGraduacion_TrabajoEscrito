@@ -1,13 +1,20 @@
 \subsection{Conclusiones}
 
-El desarrollo del sistema de localización basado en tecnología UWB cumplió con los objetivos planteados al inicio del proyecto, al demostrar la viabilidad de estimar la posición de un usuario en interiores mediante técnicas de trilateración, multilateración y filtrado estadístico, integradas en una arquitectura funcional dentro de un entorno de realidad aumentada.
+\begin{itemize}
+\item Se comprobó la viabilidad del posicionamiento en interiores mediante tecnología UWB, utilizando métodos de trilateración y multilateración para la estimación de coordenadas.
 
-En relación con el primer objetivo, se logró implementar un algoritmo de trilateración bidimensional capaz de estimar la posición del usuario sobre un plano a partir de tres sensores. Las pruebas demostraron que, aunque el sistema generaba coordenadas válidas, presentaba una variabilidad significativa producto del ruido inherente a las mediciones UWB. Esto confirmó la hipótesis inicial sobre la necesidad de aplicar técnicas de filtrado para estabilizar los resultados.
+\item El algoritmo de trilateración 2D desarrollado permitió obtener posiciones válidas, aunque con variabilidad notable debido al ruido presente en las mediciones crudas.
 
-Posteriormente, la extensión hacia una formulación de multilateración permitió incorporar redundancia mediante el uso de hasta seis sensores simultáneos. Este avance incrementó la robustez del sistema y redujo el impacto de lecturas inconsistentes o conexiones inestables, manteniendo la capacidad de procesamiento en tiempo real gracias a una implementación eficiente en Swift.
+\item La aplicación de multilateración con más anclas (hasta seis) mostró mejoras en la estabilidad y reducción de la sensibilidad al ruido, aumentando la precisión general del sistema.
 
-Respecto al segundo objetivo, se alcanzó exitosamente la integración entre el código nativo y el entorno Unity mediante un plugin desarrollado en Swift y Objective-C. Este módulo posibilitó la transmisión de coordenadas en tiempo real hacia el motor de realidad aumentada sin pérdidas perceptibles de rendimiento, validando la viabilidad del enfoque multiplataforma propuesto.
+\item La incorporación de un filtro de Kalman para fusionar datos de UWB y acelerómetro permitió suavizar trayectorias y eliminar oscilaciones espurias en la señal de posición.
 
-El tercer objetivo, centrado en la reducción del jitter mediante el uso de un filtro de Kalman, también fue cumplido. La fusión de los datos de la trilateración con las lecturas del acelerómetro permitió atenuar las oscilaciones espurias y mejorar la estabilidad del posicionamiento. El análisis estadístico de la varianza de ambas señales, junto con el ajuste empírico de los hiperparámetros del filtro, resultó en trayectorias más coherentes y suaves, adecuadas para una aplicación de realidad aumentada.
+\item El plugin nativo desarrollado en Swift logró una comunicación en tiempo real con Unity, sin afectar significativamente el rendimiento de la aplicación de realidad aumentada.
 
-Finalmente, la arquitectura del sistema fue reestructurada siguiendo principios de bajo acoplamiento y modularidad, implementando el patrón \textit{delegate}. Esta reorganización facilitó la escalabilidad del sistema y sentó las bases para futuras ampliaciones, cumpliendo el cuarto objetivo del proyecto. En conjunto, el trabajo desarrollado contribuye a resolver el problema de la localización precisa y estable en interiores, demostrando que la integración de UWB con filtrado estadístico es una solución viable y extensible para entornos de realidad aumentada.
+\item Se identificó como principal limitación el SDK propietario de Estimote, que presentó problemas de conexión y manejo de errores, restringiendo la escalabilidad y consistencia de las pruebas.
+
+\item La refactorización modular del sistema en componentes independientes (UWBManager, AccelerometerManager, PositionCoordinator) mejoró la mantenibilidad y extensibilidad del código.
+
+\item En conjunto, los resultados evidencian que la integración de UWB con filtrado estadístico constituye una solución técnica viable para aplicaciones de realidad aumentada en entornos interiores, condicionada a resolver las limitaciones del SDK utilizado.
+
+\end{itemize}

@@ -1,0 +1,30 @@
+\subsection{Objetivo 5: Evaluar cualitativamente la precisión y suavidad del sistema de localización}
+\subsubsection{Fase 1: Pruebas de campo}
+
+La primera fase consistió en la realización de pruebas de campo con el objetivo de evaluar de manera preliminar la precisión y suavidad del sistema de localización. Como punto de partida, se ejecutó una prueba de concepto en un entorno controlado, específicamente en una habitación de prueba dentro de una vivienda. En este espacio se dispusieron cuatro sensores UWB (beacons) configurados en disposición rectangular. El objetivo (o marcador de referencia) se colocó en una de las esquinas de la habitación, de modo que la aplicación debía orientar la flecha direccional —encargada de guiar al usuario durante el recorrido virtual— consistentemente hacia dicha posición.
+
+Durante la prueba se evaluaron tres ubicaciones del usuario dentro del recinto:
+\begin{enumerate}
+	\item Esquina superior izquierda: donde la flecha debía apuntar directamente hacia la derecha.
+	\item	Esquina inferior izquierda: donde la orientación esperada era en diagonal hacia la esquina objetivo (superior derecha).
+	\item	Esquina inferior derecha: donde la flecha debía apuntar hacia adelante.
+\end{enumerate}
+
+Los resultados obtenidos fueron altamente satisfactorios. El sistema respondió de manera suave y estable, manteniendo una orientación precisa y sin fluctuaciones notorias. Este primer experimento confirmó el correcto funcionamiento de la integración entre el sistema de multilateración y el filtro de Kalman desarrollado, evidenciando un desempeño fluido y congruente con las expectativas del diseño teórico.
+
+No obstante, al trasladar las pruebas a un entorno real —específicamente en las instalaciones de la Universidad del Valle de Guatemala, piso 6— se evidenciaron limitaciones significativas en la conectividad de los sensores. A pesar de utilizar la aplicación oficial de Estimote para validar las conexiones, con frecuencia se lograba establecer comunicación con únicamente tres o menos sensores simultáneamente. Además, las actualizaciones de distancia presentaban intervalos demasiado prolongados, lo que generaba saltos abruptos en la posición estimada y, por ende, un movimiento inconsistente de la flecha de guía.
+
+Esta situación motivó el planteamiento de tres hipótesis sobre las posibles causas del deterioro del rendimiento en campo:
+\begin{enumerate}
+	\item	Interferencia electromagnética (bajo SNR): el entorno universitario cuenta con múltiples fuentes de señal BLE, redes Wi-Fi, dispositivos móviles, relojes inteligentes, audífonos y materiales reflectantes (metal y vidrio), que podrían haber provocado ruido significativo en las mediciones.
+	\item	Desgaste de las baterías de los sensores: los beacons habían sido adquiridos aproximadamente un año antes, por lo que era posible que su autonomía y potencia de transmisión estuviesen reducidas.
+	\item	Excesiva separación entre sensores: en el entorno universitario, los sensores estaban distribuidos a distancias de entre 10 y 15 metros, mientras que en la prueba doméstica se encontraban considerablemente más próximos entre sí.
+\end{enumerate}
+
+Para abordar estas posibles causas, se implementaron una serie de ajustes iterativos: se reemplazaron las baterías de los sensores, se redujo la separación entre ellos, y se ajustó su altura de instalación de 2.5 m a aproximadamente 1.65 m, con el fin de mantenerlos más próximos al dispositivo del usuario. Estas modificaciones mejoraron de manera perceptible la capacidad de conexión y estabilidad de lectura, permitiendo retomar las pruebas de campo.
+
+Durante estas pruebas ajustadas, se identificaron dos problemas adicionales. El primero se relacionó con el límite máximo de conexiones simultáneas definido en el SDK de Estimote. Inicialmente, el sistema se configuró para mantener un máximo de seis conexiones activas, lo que permitía cierto margen por encima de los tres sensores requeridos para la trilateración. Sin embargo, esta restricción provocaba que, al detectar sensores adyacentes, el sistema no pudiera establecer nuevas conexiones, bloqueando la continuidad del recorrido del usuario.
+
+Para mitigar este problema, se incrementó el límite de conexiones a un valor prácticamente ilimitado (100 sensores). No obstante, esta modificación introdujo un nuevo inconveniente: el SDK comenzó a generar fallos de calendarización asociados al manejo de hilos concurrentes (thread access errors). Este error, originado dentro de las rutinas internas del SDK, no pudo ser depurado debido a que el código es propietario y compilado, lo que impide acceder a sus estructuras internas o modificar su comportamiento.
+
+Finalmente, incluso con las modificaciones implementadas, la conexión a los sensores permaneció inconsistente: en ocasiones los sensores se conectaban y respondían correctamente, pero en otras no transmitían datos, aun estando dentro del rango recomendado por el fabricante (menos de 10 m). Esta inestabilidad, sumada a la limitada documentación, falta de soporte técnico y repositorios desactualizados por parte de Estimote, representó una barrera significativa para el desempeño esperado del sistema.

@@ -1,9 +1,35 @@
-\subsection{Objetivo 4: Documentación del desarrollo e integración del plugin}
+    % \subsection{Objetivo 4: Documentación del desarrollo e integración del plugin}
 
-Como parte final del desarrollo, se estructuró el código del plugin nativo en Swift y su integración con Unity de manera modular, asegurando que cada componente tuviera una única responsabilidad y pudiera ser reutilizado o modificado de forma independiente. El proyecto fue organizado bajo una arquitectura basada en módulos, incluyendo \texttt{UWBManager} para la gestión de sensores, \texttt{AccelerometerManager} para la captura de datos inerciales y \texttt{PositionCoordinator} como punto central de fusión de datos y cálculo de posición. Esta separación de responsabilidades facilitó la depuración y la futura ampliación del sistema.
+    % Como parte final del desarrollo, se estructuró el código del plugin nativo en Swift y su integración con Unity de manera modular, asegurando que cada componente tuviera una única responsabilidad y pudiera ser reutilizado o modificado de forma independiente. El proyecto fue organizado bajo una arquitectura basada en módulos, incluyendo \texttt{UWBManager} para la gestión de sensores, \texttt{AccelerometerManager} para la captura de datos inerciales y \texttt{PositionCoordinator} como punto central de fusión de datos y cálculo de posición. Esta separación de responsabilidades facilitó la depuración y la futura ampliación del sistema.
 
-Durante esta fase se priorizó la claridad y mantenibilidad del código, aplicando convenciones de nomenclatura consistentes y comentarios descriptivos en cada clase y función clave. Se documentaron las dependencias internas y las interacciones entre el plugin nativo y Unity, detallando el flujo de llamadas entre las capas Swift/Objective-C y C\#.
+    % Durante esta fase se priorizó la claridad y mantenibilidad del código, aplicando convenciones de nomenclatura consistentes y comentarios descriptivos en cada clase y función clave. Se documentaron las dependencias internas y las interacciones entre el plugin nativo y Unity, detallando el flujo de llamadas entre las capas Swift/Objective-C y C\#.
 
-La documentación técnica —actualmente en proceso de finalización— incluye diagramas de arquitectura, esquemas de flujo de datos, y ejemplos de uso del API expuesto hacia Unity. Asimismo, se describen los pasos necesarios para compilar, integrar y extender el plugin, de modo que futuras generaciones de desarrolladores puedan continuar el proyecto sin depender de conocimiento tácito.
+    % La documentación técnica —actualmente en proceso de finalización— incluye diagramas de arquitectura, esquemas de flujo de datos, y ejemplos de uso del API expuesto hacia Unity. Asimismo, se describen los pasos necesarios para compilar, integrar y extender el plugin, de modo que futuras generaciones de desarrolladores puedan continuar el proyecto sin depender de conocimiento tácito.
 
-Finalmente, se planifica la entrega del plugin junto con su documentación técnica como parte del megaproyecto, asegurando su disponibilidad y continuidad. Este esfuerzo busca consolidar una base sólida sobre la cual otros equipos puedan iterar, incorporar nuevos sensores, o expandir las capacidades del sistema de localización en el entorno de realidad aumentada.
+    % Finalmente, se planifica la entrega del plugin junto con su documentación técnica como parte del megaproyecto, asegurando su disponibilidad y continuidad. Este esfuerzo busca consolidar una base sólida sobre la cual otros equipos puedan iterar, incorporar nuevos sensores, o expandir las capacidades del sistema de localización en el entorno de realidad aumentada.
+
+    \subsection{Objetivo 4: Documentación del desarrollo e integración del plugin}
+
+\textbf{Fase 1: Estructuración del código y módulos}
+
+Durante esta fase se organizó el código fuente del plugin nativo en \texttt{Swift} siguiendo una arquitectura modular y de única responsabilidad. Cada componente fue diseñado para cumplir una función específica dentro del flujo general del sistema: \texttt{UWBManager} gestiona las conexiones y lecturas de los sensores UWB, \texttt{AccelerometerManager} se encarga de capturar y normalizar los datos inerciales del dispositivo, y \texttt{PositionCoordinator} actúa como núcleo del cálculo de posición, combinando la información proveniente de los módulos anteriores y enviándola a Unity. % Comentario: Se explica la arquitectura modular y su propósito.
+
+Esta separación de responsabilidades permitió mantener un código limpio, fácil de depurar y con bajo acoplamiento entre módulos, favoreciendo la posibilidad de extender o sustituir componentes sin afectar al resto del sistema. Asimismo, se establecieron convenciones de nomenclatura consistentes y se documentó internamente cada clase, propiedad y método con descripciones claras de su funcionalidad. % Comentario: Se enfatiza la mantenibilidad y claridad del diseño.
+
+
+\textbf{Fase 2: Elaboración de documentación técnica}
+
+Toda la documentación del plugin se generó en el formato nativo de Apple, \texttt{.docc} (\textit{Documentation Catalogs}), el cual permite integrar la documentación directamente en Xcode y consultarla mediante la herramienta de documentación oficial de la plataforma. Este formato ofrece ventajas como navegación estructurada por símbolos, vínculos automáticos entre tipos y métodos, y compatibilidad con el sistema de generación de documentación de Swift. % Comentario: Se detalla el formato y su relevancia técnica.
+
+Cada función, método y clase del plugin incluye una descripción formal, la explicación de sus parámetros y valores de retorno, así como notas de uso y ejemplos breves. Esto facilita a futuros desarrolladores comprender el flujo del sistema sin necesidad de inspeccionar el código fuente en detalle. % Comentario: Se describe el alcance de la documentación interna.
+
+Además de la documentación integrada, se elaboró un archivo \texttt{README.md} en el repositorio principal. Este documento describe el proceso de compilación del plugin, su integración con Unity, y proporciona un ejemplo funcional que muestra cómo invocar los métodos nativos desde C\#. Se incluyen también los requisitos de entorno y dependencias necesarias para su ejecución, lo que convierte al repositorio en un punto de partida completo para desarrolladores que deseen extender o mantener el sistema. % Comentario: Se destaca el README como complemento práctico de la documentación formal.
+
+
+\textbf{Fase 3: Publicación y entrega}
+
+Con el fin de asegurar la continuidad del proyecto, toda la documentación —incluyendo el catálogo \texttt{.docc}, el archivo \texttt{README.md}, y los diagramas de arquitectura— fue almacenada dentro del mismo repositorio Git que contiene el código fuente. Esto garantiza que la documentación evolucione junto al software, evitando la pérdida de información técnica en futuras iteraciones. % Comentario: Se explica la estrategia de preservación y trazabilidad.
+
+Asimismo, todas las descripciones, comentarios y mensajes de commit en el repositorio fueron redactados en inglés. Esta decisión busca mantener la coherencia con las convenciones internacionales de desarrollo y garantizar la accesibilidad del proyecto a colaboradores externos. Desde una perspectiva de ingeniería de software, el uso del inglés en documentación técnica y control de versiones constituye una buena práctica, ya que promueve la estandarización y facilita la comprensión por parte de equipos distribuidos. % Comentario: Se justifica el uso del inglés como estándar técnico.
+
+Finalmente, la documentación técnica y el código serán entregados como parte integral del megaproyecto de realidad aumentada, asegurando su preservación y disponibilidad para futuras generaciones de estudiantes y desarrolladores. Con ello, se consolida una base estructurada y documentada que permitirá continuar la evolución del sistema con un menor costo de aprendizaje y mayor consistencia entre versiones.

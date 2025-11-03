@@ -62,7 +62,32 @@ El eje $z$ presentó una varianza más elevada debido a la naturaleza arbitraria
 
 Aunque los valores anteriores ofrecían una referencia inicial, se observó que las condiciones estáticas del acelerómetro subestimaban la varianza real durante el movimiento. Por ello, los hiperparámetros del filtro se determinaron finalmente de forma empírica, ajustándolos iterativamente hasta lograr un equilibrio entre respuesta rápida y suavizado efectivo.
 
-El resultado se validó mediante la comparación visual entre la magnitud del vector de posición filtrado y no filtrado a lo largo del tiempo. Mientras la señal original mostraba un patrón ruidoso con picos abruptos (Figura~\ref{fig:jitter}), la señal filtrada exhibía una forma sinusoidal limpia y continua (Figura~\ref{fig:kalman}), reflejando el movimiento diagonal esperado.
+El resultado se validó mediante la comparación visual entre la magnitud del vector de posición filtrado y no filtrado a lo largo del tiempo. 
+
+Para ilustrar de manera más intuitiva el efecto del filtro de Kalman sobre el movimiento, se generó una trayectoria diagonal del usuario dentro del entorno de prueba. La Figura~\ref{fig:trajectory_diagonal} muestra en el mismo plano la posición estimada con y sin filtrado, permitiendo observar claramente cómo el filtro suaviza los desplazamientos y reduce los saltos erráticos presentes en los datos crudos.
+
+\begin{figure}[H]
+    \centering
+    % Subfigura 1: sin filtro
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/trajectory_unfiltered.png} % <-- ruta de la imagen sin filtro
+        \caption{Trayectoria sin filtro de Kalman}
+        \label{fig:trajectory_no_filter}
+    \end{subfigure}
+    \hfill
+    % Subfigura 2: con filtro
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/trajectory_filtered.png} % <-- ruta de la imagen con filtro
+        \caption{Trayectoria con filtro de Kalman}
+        \label{fig:trajectory_filtered}
+    \end{subfigure}
+    \caption{Comparación de la trayectoria diagonal del usuario en movimiento. La trayectoria filtrada muestra reducción de jitter y mayor suavidad respecto a la señal sin filtrar.}
+    \label{fig:trajectory_comparison}
+\end{figure}
+
+Mientras la señal original mostraba un patrón ruidoso con picos abruptos (Figura~\ref{fig:jitter}), la señal filtrada exhibía una forma sinusoidal limpia y continua (Figura~\ref{fig:kalman}), reflejando el movimiento diagonal esperado.
 
 % Ejemplo de cómo insertar las figuras:
 \begin{figure}[H]

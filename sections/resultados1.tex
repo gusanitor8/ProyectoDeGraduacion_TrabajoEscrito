@@ -1,4 +1,4 @@
-\section{Resultados}
+\section{Resultados y discusión}
 \subsection{Objetivo 1: Algoritmo de trilateración}
 
 Para el cálculo de la posición del usuario se implementó un algoritmo de trilateración en dos dimensiones (x,y), dado que el propósito principal de la aplicación de realidad aumentada es determinar la ubicación del usuario sobre un plano, sin necesidad de considerar su altura exacta en el eje z. En un escenario tridimensional, la trilateración requiere al menos cuatro sensores UWB para resolver la posición completa del usuario. Sin embargo, al limitar el problema al plano bidimensional, fue posible emplear únicamente tres sensores, con la condición de manejar adecuadamente el eje z para evitar que su omisión se tradujera en un error adicional sobre los ejes x e y.
@@ -223,12 +223,24 @@ private func multilateration(anchors: [Anchor]) -> Vector2D {
 
 Esta formulación basada en ecuaciones normales proporciona una estimación más robusta de la posición, al reducir la sensibilidad del sistema frente a errores individuales en las mediciones de distancia. En las pruebas experimentales, la multilateración permitió estabilizar significativamente el cálculo de posición respecto al modelo de trilateración pura, generando trayectorias más suaves y coherentes con el movimiento real del usuario.
 
+%% TODO: Agregar parrafo donde se discute la limitación cuando A no es LI (LD)
+Es importante destacar que la formulación de multilateración mediante el sistema $A \mathbf{x} = \mathbf{b}$ asume, en teoría, que la matriz $A$ es linealmente independiente (LI), lo cual garantiza una solución única y exacta para la posición del usuario. % Comentario: aquí se explica el supuesto matemático detrás del modelo.
+
+Sin embargo, durante las pruebas en el entorno universitario se observó que la disposición de los sensores generaba situaciones en las que algunos beacons estaban prácticamente alineados unos detrás de otros. En estos casos, la matriz $A$ se volvía linealmente dependiente (LD), impidiendo la obtención de una solución directa mediante el solver exacto de Gauss-Jordan. % Comentario: se describe el problema real observado en campo.
+
+Para resolver esta limitación se implementó un \textit{least squares solver} basado en las ecuaciones normales, es decir, se resolvió $A^TA \mathbf{x} = A^T \mathbf{b}$. Esta aproximación no requiere que $A$ sea LI y permite calcular la posición que minimiza la suma de errores cuadrados respecto a todas las mediciones disponibles. % Comentario: se justifica el uso de ecuaciones normales como solución práctica.
+
+Esta estrategia demostró ser altamente conveniente por dos razones: primero, el solver utilizado (implementado con funciones de LAPACK integradas en Swift) está optimizado para cálculos matriciales y resultó significativamente más rápido que una implementación propia desde cero; segundo, permitió aprovechar simultáneamente más de tres sensores, mejorando la robustez del posicionamiento y la suavidad de las trayectorias, incluso en situaciones donde la matriz $A$ era casi singular. % Comentario: se resalta la ventaja de rendimiento y estabilidad obtenida.
+
+En resumen, aunque la linealidad de $A$ es un requisito teórico ideal, la aplicación práctica del solver de mínimos cuadrados permitió superar las limitaciones impuestas por la geometría de los sensores en el entorno real, garantizando resultados precisos y un rendimiento adecuado para la experiencia del usuario.
 
 \subsubsection{Fase 3: Validación funcional}
 \subsubsection*{Validación experimental y observaciones}
 
 Una vez implementado el algoritmo de trilateración en 2D, se realizaron pruebas controladas con tres sensores Estimote UWB para evaluar su funcionamiento. La primera prueba se llevó a cabo en un salón del campus universitario, con el objetivo de obtener una visualización inicial del posicionamiento calculado. En esta etapa se generó una animación (GIF) que mostraba en tiempo real la estimación de la ubicación del usuario.
 
+
+%% TODO: agregar grafica para ver como se movio el GIF
 En dichas pruebas preliminares se observó que las posiciones estimadas presentaban una variabilidad considerable, aun cuando el dispositivo se mantenía estático. Esta fluctuación —visible como movimientos erráticos del punto de localización en la animación— evidenció la presencia de ruido significativo en las mediciones de distancia obtenidas de los sensores.
 
 Posteriormente, se realizó una segunda fase de pruebas en un entorno controlado, específicamente en un cuarto rectangular donde los sensores se dispusieron a una misma altura y en posiciones fijas previamente medidas. En este escenario se registraron las coordenadas calculadas por la trilateración a lo largo del tiempo, mientras el usuario se desplazaba en diagonal entre el origen y el primer cuadrante del plano de referencia.
