@@ -6,6 +6,27 @@ Las primeras pruebas de campo tuvieron como propósito observar el comportamient
 
 Durante las pruebas se observó el mapa desde vista superior para visualizar el posicionamiento del jugador en el entorno virtual y posteriormente se evaluó la flecha de realidad aumentada que indica la dirección del objetivo. En todos los casos, la flecha apuntó de forma consistente hacia el objetivo y los movimientos fueron suaves y estables, confirmando la correcta fusión entre el algoritmo de multilateración y el filtro de Kalman. No se detectaron comportamientos erráticos ni fluctuaciones visuales significativas. % Esta afirmación valida la precisión cualitativa del sistema en condiciones controladas.
 
+\begin{figure}[H]
+    \centering
+    % Subfigura 1: vista superior
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[height=0.45\textheight]{images/pov1.PNG} % ajusta 0.45 si aún se ven grandes
+        \caption{Vista de la flecha apuntando al objetivo correctamente (señalado en rojo).}
+        \label{fig:home_test_topview}
+    \end{subfigure}
+    \hfill
+    % Subfigura 2: trayectoria general
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[height=0.45\textheight]{images/pov2.PNG}
+        \caption{Vista de la flecha apuntando al objetivo correctamente (señalado en rojo).}
+        \label{fig:home_test_path}
+    \end{subfigure}
+    \caption{Pruebas domésticas con el sistema completamente integrado. Las trayectorias muestran un movimiento continuo y estable, confirmando la correcta sincronización entre el algoritmo de trilateración, el filtro de Kalman y la aplicación de realidad aumentada.}
+    \label{fig:home_test_results}
+\end{figure}
+
 A partir de estos resultados iniciales, se trasladaron las pruebas al entorno real de la Universidad del Valle de Guatemala, específicamente al sexto nivel del edificio. En esta etapa se utilizaron cinco sensores, distribuidos según las coordenadas obtenidas experimentalmente:
 
 \begin{verbatim}
@@ -32,10 +53,25 @@ En contraste, las pruebas en el entorno universitario presentaron un movimiento 
 Los datos de posicionamiento obtenidos en estas pruebas se emplearán para generar gráficas comparativas que reflejen el jitter y la dispersión espacial del sistema. % Punto sugerido para incluir gráfica.
 % ===> Aquí puedes incluir una figura con capturas de pantalla del recorrido en el entorno universitario.
 % Ejemplo: 
-\begin{figure}[h] 
-  \centering 
-  \includegraphics[width=0.3\textwidth]{images/unity_route.png} 
-  \caption{Trayectoria observada del sistema en el entorno universitario.} 
+\begin{figure}[H]
+    \centering
+    % Subfigura 1: vista superior del mapa
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[height=0.38\textheight]{images/unity_route.png}
+        \caption{Vista superior del mapa con la trayectoria del usuario en el entorno universitario.}
+        \label{fig:unity_map_view}
+    \end{subfigure}
+    \hfill
+    % Subfigura 2: vista en primera persona (AR)
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[height=0.38\textheight]{images/pov3.PNG}
+        \caption{Vista en primera persona desde la aplicación de realidad aumentada, mostrando la flecha direccional hacia el objetivo.}
+        \label{fig:unity_firstperson_view}
+    \end{subfigure}
+    \caption{Pruebas en el entorno universitario mostrando la trayectoria del usuario (izquierda) y la visualización en realidad aumentada (derecha). Ambas perspectivas confirman la coherencia entre la posición estimada y la dirección mostrada al usuario.}
+    \label{fig:unity_combined_views}
 \end{figure}
 
 Asimismo, se incluirán capturas de pantalla representativas del comportamiento visual del sistema durante las pruebas, con el fin de complementar el análisis cualitativo. % Punto sugerido para incluir capturas de la aplicación.
