@@ -13,9 +13,22 @@
 \usepackage{tikz} % For drawing diagrams
 \usetikzlibrary{babel} % ADD THIS LINE - fixes babel+tikz conflicts
 \usepackage{tikz-3dplot} % For 3D diagrams
+
 \usepackage{listings}
+\usepackage{xcolor}
 \lstset{
-    captionpos=b  % b = bottom, t = top (default)
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=5pt,
+  backgroundcolor=\color{gray!5},
+  frame=single,
+  breaklines=true,
+  captionpos=b,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{teal}
 }
 
 \usepackage{pdflscape} % Horizontal page orientation
@@ -81,6 +94,34 @@
 \end{doublespace}
 \end{center}
 % end of cover section
+
+% signature section
+\newpage
+\thispagestyle{empty}
+\vspace*{0.5in}
+
+\begin{center}
+\Large \textbf{Vo.Bo.}\\[1cm]
+\end{center}
+
+\begin{center}
+Firma: \rule[1pt]{4in}{1pt}\\
+\textbf{Ing. Dulce María Chacón}\\[1cm]
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+Firma: \rule[1pt]{4in}{1pt}\\
+\textbf{Ing. Cecilia Castillo}\\[1cm]
+\end{center}
+
+\vspace{1cm}
+
+\begin{flushright}
+Fecha de aprobación: Guatemala, 18 de noviembre de 2025.
+\end{flushright}
+\newpage
 
 % begin table of contents
 \tableofcontents

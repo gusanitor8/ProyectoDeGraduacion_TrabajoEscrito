@@ -1,20 +1,14 @@
 \subsection{Conclusiones}
 
 \begin{itemize}
-\item Se comprobó la viabilidad del posicionamiento en interiores mediante tecnología UWB, utilizando métodos de trilateración y multilateración para la estimación de coordenadas.
+\item Se logró diseñar e implementar un algoritmo de trilateración bidimensional capaz de estimar la posición del usuario en interiores utilizando distancias medidas hacia múltiples sensores UWB. El modelo, basado en ecuaciones normales y extendido a multilateración, permitió reducir parcialmente la sensibilidad a errores individuales, produciendo posiciones coherentes y estables dentro del plano. No obstante, las pruebas experimentales revelaron la presencia de variabilidad y jitter en las mediciones, atribuibles al ruido inherente de los sensores y a las condiciones físicas del entorno. En consecuencia, el objetivo se considera cumplido, aunque con la necesidad de aplicar técnicas complementarias de filtrado para optimizar la estabilidad del sistema.
 
-\item El algoritmo de trilateración 2D desarrollado permitió obtener posiciones válidas, aunque con variabilidad notable debido al ruido presente en las mediciones crudas.
+\item Se logró integrar de manera efectiva el SDK nativo de Estimote con el entorno Unity a través del desarrollo de un plugin en Swift que actúa como puente entre ambas plataformas. La comunicación en tiempo real permitió transmitir datos de posición de los sensores hacia la aplicación de realidad aumentada con baja latencia y sin degradación perceptible del rendimiento. Este componente garantizó la interoperabilidad entre el sistema de localización nativo y el motor gráfico, sentando las bases para futuras extensiones multiplataforma. Por tanto, este objetivo se considera plenamente alcanzado.
 
-\item La aplicación de multilateración con más anclas (hasta seis) mostró mejoras en la estabilidad y reducción de la sensibilidad al ruido, aumentando la precisión general del sistema.
+\item Se implementó exitosamente un filtro de Kalman que permitió fusionar los datos obtenidos por trilateración con las lecturas del acelerómetro del dispositivo, mejorando significativamente la suavidad y estabilidad de la trayectoria estimada. El filtro demostró ser eficaz para reducir el jitter y las oscilaciones espurias, especialmente en condiciones de reposo o movimiento uniforme. El proceso de ajuste de parámetros y validación experimental confirmó la utilidad del filtrado para alcanzar un equilibrio adecuado entre precisión y estabilidad visual, cumpliendo satisfactoriamente con el objetivo planteado.
 
-\item La incorporación de un filtro de Kalman para fusionar datos de UWB y acelerómetro permitió suavizar trayectorias y eliminar oscilaciones espurias en la señal de posición.
+\item El desarrollo del plugin se acompañó de una documentación técnica exhaustiva que describe la arquitectura del sistema, la estructura de los módulos y el flujo de datos entre las capas nativas y Unity. Se aplicaron principios de diseño modular y buenas prácticas de programación orientada a objetos, facilitando la mantenibilidad y la futura extensión del sistema hacia dispositivos Android. Esta documentación garantiza la continuidad del megaproyecto, sirviendo como referencia técnica para futuras generaciones. Por ello, el objetivo se considera plenamente cumplido.
 
-\item El plugin nativo desarrollado en Swift logró una comunicación en tiempo real con Unity, sin afectar significativamente el rendimiento de la aplicación de realidad aumentada.
-
-\item Se identificó como principal limitación el SDK propietario de Estimote, que presentó problemas de conexión y manejo de errores, restringiendo la escalabilidad y consistencia de las pruebas.
-
-\item La refactorización modular del sistema en componentes independientes (UWBManager, AccelerometerManager, PositionCoordinator) mejoró la mantenibilidad y extensibilidad del código.
-
-\item En conjunto, los resultados evidencian que la integración de UWB con filtrado estadístico constituye una solución técnica viable para aplicaciones de realidad aumentada en entornos interiores, condicionada a resolver las limitaciones del SDK utilizado.
+\item La evaluación cualitativa del sistema de localización permitió confirmar la coherencia del movimiento estimado con la trayectoria real del usuario, validando la efectividad del algoritmo y del filtro de Kalman en entornos controlados. Sin embargo, se identificaron limitaciones impuestas por el SDK de Estimote, que restringieron la posibilidad de realizar mediciones consistentes en escenarios más amplios o con mayor número de sensores activos. A pesar de ello, los resultados obtenidos demuestran que el sistema cumple con su propósito de proporcionar una experiencia de navegación fluida y precisa dentro del entorno de realidad aumentada, considerándose este objetivo alcanzado parcialmente.
 
 \end{itemize}

@@ -1,4 +1,4 @@
-\section{Resultados y discusión}
+\section{Resultados y Discusión}
 \subsection{Objetivo 1: Algoritmo de trilateración}
 
 Para el cálculo de la posición del usuario se implementó un algoritmo de trilateración en dos dimensiones (x,y), dado que el propósito principal de la aplicación de realidad aumentada es determinar la ubicación del usuario sobre un plano, sin necesidad de considerar su altura exacta en el eje z. En un escenario tridimensional, la trilateración requiere al menos cuatro sensores UWB para resolver la posición completa del usuario. Sin embargo, al limitar el problema al plano bidimensional, fue posible emplear únicamente tres sensores, con la condición de manejar adecuadamente el eje z para evitar que su omisión se tradujera en un error adicional sobre los ejes x e y.
@@ -69,11 +69,11 @@ Este procedimiento permitió compensar parcialmente el efecto de la elevación e
 \subsubsection{Fase 2: Desarrollo del algoritmo}
 \subsubsection*{Implementación del algoritmo en Swift}
 
-El algoritmo fue implementado en el lenguaje \texttt{Swift} como parte del plugin nativo de localización para iOS. La función principal, \texttt{do\_trilateration}, recibe como entrada un conjunto dinámico de sensores activos, y selecciona automáticamente las tres anclas más recientes basándose en su marca de tiempo (\textit{timestamp}). Esta estrategia de selección garantiza que las mediciones correspondan a señales coherentes temporalmente, evitando inconsistencias en el cálculo espacial.
+El algoritmo fue implementado en el lenguaje \texttt{Swift} como parte del plugin nativo de localización para iOS, como se muestra en el listado \ref{lst:algoritmo}. La función principal, \texttt{do\_trilateration}, recibe como entrada un conjunto dinámico de sensores activos, y selecciona automáticamente las tres anclas más recientes basándose en su marca de tiempo (\textit{timestamp}). Esta estrategia de selección garantiza que las mediciones correspondan a señales coherentes temporalmente, evitando inconsistencias en el cálculo espacial.
 
 Cada ancla contiene su posición $(x_i, y_i, z_i)$ y la distancia medida $d_i$. Estos datos se utilizan para construir las ecuaciones linealizadas y resolver el sistema mediante una formulación explícita derivada de las expresiones anteriores.
 
-La función \texttt{trilaterate\_3D} implementa la resolución directa del sistema para tres anclas, utilizando la ancla 1 como referencia. El algoritmo obtiene las constantes intermedias $A$, $B$, $C$, $D$, $E$, $F$, $G$, $H$ correspondientes a las dos ecuaciones independientes, y a partir de ellas se construye un sistema auxiliar para despejar el eje $z$:
+La función \texttt{trilaterate\_3D} implementa la resolución directa del sistema para tres anclas, utilizando la ancla 1 como referencia; como se puede ver en el listado \ref{lst:trilaterate3D}. El algoritmo obtiene las constantes intermedias $A$, $B$, $C$, $D$, $E$, $F$, $G$, $H$ correspondientes a las dos ecuaciones independientes, y a partir de ellas se construye un sistema auxiliar para despejar el eje $z$:
 
 \[
 \begin{cases}
@@ -197,29 +197,13 @@ Esta formulación corresponde al sistema de ecuaciones normales, cuya solución 
 
 \subsubsection*{Implementación de multilateración en Swift}
 
-La multilateración se implementó mediante la función \texttt{multilateration()}, que construye las matrices del sistema y aplica las ecuaciones normales para resolver el vector de posición en tiempo real. El proceso se ejecuta en tres etapas:
+La multilateración se implementó mediante la función \texttt{multilateration()} y se puede observar en el listado \ref{lst:algoritmo}, que construye las matrices del sistema y aplica las ecuaciones normales para resolver el vector de posición en tiempo real. El proceso se ejecuta en tres etapas:
 
 \begin{enumerate}
     \item \textbf{Construcción de matrices:} La función \texttt{multInitializeMatrixVector()} genera la matriz $A$ y el vector $\mathbf{b}$ en base a las posiciones y distancias de cada ancla, tomando una de ellas como referencia o \textit{pivot}.
     \item \textbf{Cálculo de las ecuaciones normales:} Se obtiene el producto $A^TA$ y $A^T\mathbf{b}$ mediante multiplicación matricial, creando un sistema cuadrado de dimensión $3 \times 3$.
     \item \textbf{Resolución del sistema:} El sistema resultante se resuelve mediante el método de Gauss-Jordan, devolviendo el vector de posición $(x, y)$.
 \end{enumerate}
-
-\begin{lstlisting}[language=Swift, caption={Implementación del método de multilateración en Swift.}]
-private func multilateration(anchors: [Anchor]) -> Vector2D {
-    let (matrix, vector) = multInitializeMatrixVector(anchors: anchors)
-    let n = matrix.count / 3
-    let transposedMatrix = transpose(matrix: matrix, rows: n , cols: 3)
-    
-    let lhs = matrixMultiplication(A: transposedMatrix, rowsOfA: 3,
-                                   B: matrix, colsOfB: 3, sharedDim: n)
-    let rhs = matrixMultiplication(A: transposedMatrix, rowsOfA: 3,
-                                   B: vector, colsOfB: 1, sharedDim: n)
-    
-    let result = gaussJordan(A: lhs, n: 3, b: rhs)
-    return Vector2D(x: result[0], y: result[1])
-}
-\end{lstlisting}
 
 Esta formulación basada en ecuaciones normales proporciona una estimación más robusta de la posición, al reducir la sensibilidad del sistema frente a errores individuales en las mediciones de distancia. En las pruebas experimentales, la multilateración permitió estabilizar significativamente el cálculo de posición respecto al modelo de trilateración pura, generando trayectorias más suaves y coherentes con el movimiento real del usuario.
 
