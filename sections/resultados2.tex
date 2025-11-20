@@ -34,8 +34,6 @@ Por estas razones, se decidió descartar este enfoque y migrar hacia un sistema 
 
 Con la comunicación nativa ya establecida, el siguiente paso consistió en desarrollar un plugin que actuara como puente entre Swift (iOS) y Unity. La elección de Unity se basó en su capacidad de ofrecer un entorno multiplataforma, permitiendo construir una sola interfaz visual y mantener únicamente la capa de conexión nativa diferenciada para iOS y Android. 
 
-Antes de integrar el SDK, se realizaron pruebas de viabilidad del plugin. En una primera instancia, se desarrolló una aplicación sencilla en la que Unity invocaba una función en Swift para reproducir un audio, comprobando que las llamadas nativas y la gestión del ciclo de vida del plugin funcionaban correctamente. Posteriormente, se reemplazó el módulo de audio por el SDK de Estimote, verificando que era posible conectar y recibir datos desde Unity, lo que confirmó la factibilidad de este enfoque.
-
 Técnicamente, la integración se realizó exponiendo funciones Swift mediante el sistema de interoperabilidad de Objective-C con Swift, asegurando que fueran públicas para que Unity pudiera reconocerlas en tiempo de ejecución. Este mecanismo permitió que la capa lógica escrita en Swift permaneciera aislada, mientras que Unity se encargaba de visualizar los datos procesados en tiempo real.
 
 \subsubsection*{Fase 3: Validación del flujo de comunicación}

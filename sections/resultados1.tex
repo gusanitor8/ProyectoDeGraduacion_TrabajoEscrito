@@ -69,11 +69,11 @@ Este procedimiento permitió compensar parcialmente el efecto de la elevación e
 \subsubsection{Fase 2: Desarrollo del algoritmo}
 \subsubsection*{Implementación del algoritmo en Swift}
 
-El algoritmo fue implementado en el lenguaje \texttt{Swift} como parte del plugin nativo de localización para iOS, como se muestra en el listado \ref{lst:algoritmo}. La función principal, \texttt{do\_trilateration}, recibe como entrada un conjunto dinámico de sensores activos, y selecciona automáticamente las tres anclas más recientes basándose en su marca de tiempo (\textit{timestamp}). Esta estrategia de selección garantiza que las mediciones correspondan a señales coherentes temporalmente, evitando inconsistencias en el cálculo espacial.
+El algoritmo fue implementado en el lenguaje \texttt{Swift} como parte del plugin nativo de localización para iOS, como se muestra en el listado \ref{lst:algoritmo} de la sección de Anexos. La función principal, \texttt{do\_trilateration}, recibe como entrada un conjunto dinámico de sensores activos, y selecciona automáticamente las tres anclas más recientes basándose en su marca de tiempo (\textit{timestamp}). Esta estrategia de selección garantiza que las mediciones correspondan a señales coherentes temporalmente, evitando inconsistencias en el cálculo espacial.
 
 Cada ancla contiene su posición $(x_i, y_i, z_i)$ y la distancia medida $d_i$. Estos datos se utilizan para construir las ecuaciones linealizadas y resolver el sistema mediante una formulación explícita derivada de las expresiones anteriores.
 
-La función \texttt{trilaterate\_3D} implementa la resolución directa del sistema para tres anclas, utilizando la ancla 1 como referencia; como se puede ver en el listado \ref{lst:trilaterate3D}. El algoritmo obtiene las constantes intermedias $A$, $B$, $C$, $D$, $E$, $F$, $G$, $H$ correspondientes a las dos ecuaciones independientes, y a partir de ellas se construye un sistema auxiliar para despejar el eje $z$:
+La función \texttt{trilaterate\_3D} implementa la resolución directa del sistema para tres anclas, utilizando la ancla 1 como referencia; como se puede ver en el listado \ref{lst:trilaterate3D} de la sección de Anexos. El algoritmo obtiene las constantes intermedias $A$, $B$, $C$, $D$, $E$, $F$, $G$, $H$ correspondientes a las dos ecuaciones independientes, y a partir de ellas se construye un sistema auxiliar para despejar el eje $z$:
 
 \[
 \begin{cases}
